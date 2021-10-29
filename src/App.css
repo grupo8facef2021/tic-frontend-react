@@ -1,0 +1,47 @@
+.App {
+  text-align: center;
+}
+
+@font-face {
+  font-family: 'Abel';
+  src: url('/src/fonts/Abel-Regular.ttf') format('truetype');
+  src: url('/src/fonts/Abel-Regular.eot');
+  src: url('/src/fonts/Abel-Regular.eot?#iefix') format('embedded-opentype'),
+  url('/src/fonts/Abel-Regular.woff') format('woff'),
+  url('/src/fonts/Abel-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: Abel, serif !important;
+}
+
+.container-home {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  width: 990px;
+}
+
+@media (max-width: 1024px) {
+  .container-home {
+    width: 554px;
+  } 
+}
+
+@media (max-width: 768px) {
+  .container-home {
+    width: 277px;
+  } 
+}
+
+.no-select {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
