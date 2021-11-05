@@ -1,31 +1,15 @@
-import React, { createContext, useEffect, useState } from 'react';
-import authServices from '../services/auth';
-import jwt from 'jsonwebtoken';
+import React, { createContext, useState } from 'react';
+import { login } from '../services/auth';
 import PropTypes from 'prop-types';
 
 const Context = createContext(undefined);
 
-const AuthProvider = ({ children }) => {
+const ContextProvider = ({ children }) => {
   const [auth, setAuth] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {}, []);
-
-  function checkLogin() {
-    const token = localStorage.getItem('token');
-    const dataToken = token && jwt.decode(token);
-
-    if (dataToken && dataToken.exp > (new Date().getTime() + 1) / 1000 && dataToken.data) {
-      setAuth(true);
-    } else {
-      setAuth(false);
-      if (!window.location.pathname.includes('login')) window.location.href = '/login';
-    }
-    setLoading(false);
-  }
-
   const handleLogin = async (user) => {
-    const response = await authServices.login(user);
+    const response = await login(user);
 
     if (response && response.ok && response.data) {
       const { token } = response.data;
@@ -37,20 +21,18 @@ const AuthProvider = ({ children }) => {
   };
 
   const handleLogout = async () => {
-    localStorage.setItem('token', null);
+    localStorage.removeItem('token');
     setAuth(false);
     window.location.href = '/login';
-    checkLogin();
-    await authServices.logout();
   };
 
   return (
-    <Context.Provider value={{ auth, handleLogin, handleLogout, loading, checkLogin }}>
+    <Context.Provider value={{ auth, handleLogin, handleLogout, loading, setLoading }}>
       {children}
     </Context.Provider>
   );
 };
 
-AuthProvider.propTypes = { children: PropTypes.any };
+ContextProvider.propTypes = { children: PropTypes.any };
 
-export { Context, AuthProvider };
+export { Context, ContextProvider };

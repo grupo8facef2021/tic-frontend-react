@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { Screen } from '../../components';
-import { Context } from '../../Context/authContext';
+import { Context } from '../../context/authContext';
 
 const Logout = () => {
   const { handleLogout } = useContext(Context);

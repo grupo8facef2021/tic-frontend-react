@@ -32,7 +32,6 @@ class Screen extends Component {
 
     return (
       <Container>
-        <Loading loadingState={loadingState} />
         <ContainerHeader />
         <ContainerBody>
           <div className={'container'}>{body ? body() : ''}</div>

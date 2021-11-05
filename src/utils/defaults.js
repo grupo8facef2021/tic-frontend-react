@@ -19,9 +19,11 @@ exports.Header = () => {
 exports.axiosDefault = () => {
   const token = localStorage.getItem('token');
   const configs = {
+    baseURL: 'http://localhost:3333/api',
     headers: {
       Authorization: token ? `Bearer ${token}` : undefined,
       withCredentials: true,
+      'Access-Control-Allow-Origin': '*'
     },
     withCredentials: true,
   };

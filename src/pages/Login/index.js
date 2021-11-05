@@ -2,41 +2,39 @@ import React, { useContext, useState } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { Screen, Text } from '../../components';
 import { Row, Col } from 'react-bootstrap';
-import { Context } from '../../Context/authContext';
+import { Context } from '../../context/authContext';
 import { colors } from '../../utils/colors';
+import {useAlert} from 'react-alert'
 
 const Login = () => {
   const [user, setUser] = useState({ email: '', password: '' });
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const [state, setState] = useState({
-    loadingState: false,
-    modalState: { title: 'Erro', text: '', toggle: false, onHide: '' },
-  });
-  const { handleLogin } = useContext(Context);
+  
+  const { handleLogin, loading, setLoading } = useContext(Context);
+
+  const alert = useAlert()
 
   const handleChange = (id, value) => {
     setUser({ ...user, [id]: value });
   };
 
   const handleSubmit = async () => {
-    setState({ ...state, loadingState: true });
+    const {email, password} = user
+    if (email === '') setEmailError(true);
+    if (password === '') setPasswordError(true);
 
-    if (user.email === '') setEmailError(true);
-    if (user.password === '') setPasswordError(true);
-
-    if (!emailError || !passwordError) {
+    if (emailError || !passwordError) {
+      setLoading(true)
       const response = await handleLogin(user);
+      alert.show('teste')
 
       if (response.ok) {
-        window.location.href = '/';
+        // window.location.href = '/';
       } else {
         console.log();
       }
-      setState({ state });
     }
-
-    setState({ ...state, loadingState: false });
   };
 
   const body = () => {
@@ -94,7 +92,7 @@ const Login = () => {
   };
 
   return (
-    <Screen login body={body} modalState={state.modalState} loadingState={state.loadingState} />
+    <Screen login body={body} />
   );
 };
 
