@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { SmallText, MediumText, LargeText, ExtraLargeText } from './styles';
 
-class Text extends Component {
+export class Text extends Component {
   render() {
     //props
     const { text } = this.props;
@@ -38,5 +38,3 @@ Text.propTypes = {
   large: PropTypes.bool,
   extraLarge: PropTypes.bool,
 };
-
-export default Text;

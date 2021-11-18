@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { login } from '../services/auth';
+import { login } from '../services/login/loginService';
 import PropTypes from 'prop-types';
 
 const Context = createContext(undefined);

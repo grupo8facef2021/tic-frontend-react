@@ -3,7 +3,7 @@ import { colors } from '../../utils/colors';
 
 export const SmallText = styled.p`
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 400;
   color: ${colors.primary};
 `;
 

@@ -1,26 +1,28 @@
 import './App.css';
 import React from 'react';
-import Router from './pages/router/Router';
+import Routes from './routes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { transitions, positions, Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
+import { GlobalStyle } from './globalStyle'
+import { BrowserRouter } from 'react-router-dom';
+import 'semantic-ui-css/semantic.min.css'
 
 const options = {
-  // you can also just use 'bottom center'
   position: positions.TOP_RIGHT,
   timeout: 5000,
   offset: '5px',
-  // you can also just use 'scale'
   transition: transitions.SCALE
 }
 
 function App() {
   return (
-    <main>
+    <BrowserRouter>
+      <GlobalStyle />
       <AlertProvider template={AlertTemplate} {...options}>
-        <Router />
+        <Routes />
       </AlertProvider>
-    </main>
+    </BrowserRouter>
   );
 }
 

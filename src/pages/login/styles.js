@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { device } from '../../utils/devices';
-import { Container as ContainerComponent } from 'react-bootstrap';
+import { Container as ContainerComponent, Button, Row, Col } from 'react-bootstrap';
 import { colors } from '../../utils/colors';
 
 export const Container = styled.div``;
@@ -53,16 +53,44 @@ export const ContainerHeader = styled(ContainerComponent)`
   }
 `;
 
-export const ContainerLogin = styled(ContainerComponent)`
+export const ContainerLogin = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin: 0;
-  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
 `;
 
-export const BackgroundLogin = styled(ContainerComponent)`
-  display: flex;
+export const CustomRow = styled(Row)`
+  ${props => props.full && 'height: 100vh'};
+  align-items: center;
+  justify-content: ${props => props.align};
+`
+
+export const CustomCol = styled(Col)`
   height: 100vh;
-  background-color: ${colors.primary};
-`;
+  align-items: center;
+  justify-content: center;
+`
+
+export const CustomContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`
+
+export const BackgroundLogin = styled(CustomContainer)`
+  width: 55%;
+  background: ${colors.primary};
+`
+
+export const FormLogin = styled(CustomContainer)`
+  width: 45%;
+`
+
+export const CustomButton = styled(Button)`
+  background-color: green;
+  width: 100%;
+`

@@ -4,7 +4,7 @@ import { CustomModal } from './styles';
 import { Spinner } from 'react-bootstrap';
 import { colors } from '../../utils/colors';
 
-class LoadingComponent extends Component {
+export class Loading extends Component {
   render() {
     //props
     const { loadingState } = this.props;
@@ -35,11 +35,9 @@ class LoadingComponent extends Component {
   }
 }
 
-LoadingComponent.propTypes = {
+Loading.propTypes = {
   // props
   loadingState: PropTypes.bool,
 
   // types
 };
-
-export default LoadingComponent;
