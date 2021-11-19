@@ -4,10 +4,10 @@ import { Text } from '../../components';
 import { Row, Col, Container } from 'react-bootstrap';
 import { Context } from '../../context/authContext';
 import { colors } from '../../utils/colors';
-import { useAlert } from 'react-alert'
-import { login } from '../../services/login/loginService'
+import { useAlert } from 'react-alert';
+import { login } from '../../services/login/loginService';
 
-import image from './images/mecanico 2.2.png'
+import image from './images/mecanico 2.2.png';
 import { BackgroundLogin, FormLogin } from './styles';
 
 const Login = () => {
@@ -17,39 +17,38 @@ const Login = () => {
 
   const { setLoading } = useContext(Context);
 
-  const alert = useAlert()
+  const alert = useAlert();
 
   const handleChange = (key, value) => {
     setUser({ ...user, [key]: value });
   };
 
   const handleSubmit = async () => {
-    const { email, password } = user
-    let isValid = true
+    const { email, password } = user;
+    let isValid = true;
 
     if (email === '') {
-      setEmailError(true)
-      isValid = false
+      setEmailError(true);
+      isValid = false;
     }
 
     if (password === '') {
-      setPasswordError(true)
-      isValid = false
+      setPasswordError(true);
+      isValid = false;
     }
 
-    if (!isValid) return
+    if (!isValid) return;
 
-    setLoading(true)
+    setLoading(true);
     const response = await login(user);
-    setLoading(false)
+    setLoading(false);
 
     if (!response.success) {
-      alert.show(response.message)
-      return
+      alert.show(response.message);
+      return;
     }
 
-    window.location.href = "/users"
-
+    window.location.href = '/users';
   };
 
   return (
@@ -81,9 +80,7 @@ const Login = () => {
                 onChange={(e) => {
                   handleChange('email', e.target.value);
                   setEmailError(false);
-                }}
-              >
-              </TextField>
+                }}></TextField>
             </Col>
             <Col md={12}>
               <TextField
@@ -108,15 +105,14 @@ const Login = () => {
                 fullWidth
                 variant="contained"
                 style={{ backgroundColor: colors.primary }}
-                onClick={() => handleSubmit()}
-              >
+                onClick={() => handleSubmit()}>
                 login
               </Button>
             </Col>
           </Row>
         </FormLogin>
       </Row>
-    </Container >
+    </Container>
   );
 };
 
