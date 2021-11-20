@@ -33,7 +33,6 @@ const Clients = () => {
     if (!response.success) {
       alert.error(response.message);
     } else {
-      console.log(response);
       setClients(response.data);
     }
 
