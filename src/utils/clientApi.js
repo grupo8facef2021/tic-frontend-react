@@ -6,11 +6,10 @@ export const axiosDefault = () => {
     baseURL: 'http://localhost:3333/api',
     headers: {
       Authorization: token ? `Bearer ${token}` : undefined,
-      withCredentials: true
+      withCredentials: true,
     },
     withCredentials: true,
   };
 
   return axios.create(configs);
 };
-

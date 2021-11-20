@@ -1,3 +1,3 @@
 export const statusEnum = {
-    UNAUTHORIZED: 401
-}
+  UNAUTHORIZED: 401,
+};

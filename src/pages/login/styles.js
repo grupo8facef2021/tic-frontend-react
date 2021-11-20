@@ -62,16 +62,16 @@ export const ContainerLogin = styled.div`
 `;
 
 export const CustomRow = styled(Row)`
-  ${props => props.full && 'height: 100vh'};
+  ${(props) => props.full && 'height: 100vh'};
   align-items: center;
-  justify-content: ${props => props.align};
-`
+  justify-content: ${(props) => props.align};
+`;
 
 export const CustomCol = styled(Col)`
   height: 100vh;
   align-items: center;
   justify-content: center;
-`
+`;
 
 export const CustomContainer = styled.div`
   display: flex;
@@ -79,18 +79,18 @@ export const CustomContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-`
+`;
 
 export const BackgroundLogin = styled(CustomContainer)`
   width: 55%;
   background: ${colors.primary};
-`
+`;
 
 export const FormLogin = styled(CustomContainer)`
   width: 45%;
-`
+`;
 
 export const CustomButton = styled(Button)`
   background-color: green;
   width: 100%;
-`
+`;

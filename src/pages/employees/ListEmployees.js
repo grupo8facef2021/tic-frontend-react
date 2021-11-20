@@ -3,21 +3,24 @@ import { Row, Col, Container } from 'react-bootstrap';
 import { Header, Content, CardContent } from '../../components/layout/Layout';
 import { colors } from '../../utils/colors';
 import { Text, CardList } from '../../components';
-import { getUsers, createUser } from '../../services/users/usersService';
-
 import { TextField, Button } from '@material-ui/core';
 import { Context } from '../../context/authContext';
 import { useAlert } from 'react-alert';
+import { useHistory } from 'react-router';
 
-const Users = () => {
-  const { setLoading } = useContext(Context);
+import { getEmployees } from '../../services/employees/emplyoyeesService';
+
+const Employees = () => {
   const alert = useAlert();
+  const history = useHistory();
+
+  const { setLoading } = useContext(Context);
 
   const [search, setSearch] = useState({
     name: '',
   });
 
-  const [users, setUsers] = useState([]);
+  const [employees, setEmployees] = useState([]);
 
   const handleChange = (key, value) => {
     setSearch({ ...search, [key]: value });
@@ -26,11 +29,11 @@ const Users = () => {
   const handleSearch = async () => {
     setLoading(true);
 
-    const response = await getUsers();
+    const response = await getEmployees();
     if (!response.success) {
       alert.error(response.message);
     } else {
-      setUsers(response.data);
+      setEmployees(response.data);
     }
 
     setLoading(false);
@@ -40,7 +43,7 @@ const Users = () => {
     <Container fluid>
       <Content>
         <Header>
-          <Text large text="Usuários" />
+          <Text large text="Funcionários" />
         </Header>
         <CardContent>
           <Row lg={2} sm={1} xs={1}>
@@ -71,22 +74,23 @@ const Users = () => {
               <Button
                 size="large"
                 style={{ color: 'white', background: colors.primary }}
-                variant="outlined">
+                variant="outlined"
+                onClick={() => history.push('/funcionarios/novo')}>
                 Novo Usuário
               </Button>
             </Col>
           </Row>
           <Row lg={1} sm={1} xs={1}>
             <CardList
-              dataList={users}
+              dataList={employees}
               templateCard={[
                 {
-                  key: 'Tipo',
-                  accessor: 'email',
+                  key: 'Nome',
+                  accessor: 'name',
                 },
                 {
-                  key: 'Email',
-                  accessor: 'email',
+                  key: 'Cargo',
+                  accessor: 'role',
                 },
               ]}
             />
@@ -97,4 +101,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Employees;

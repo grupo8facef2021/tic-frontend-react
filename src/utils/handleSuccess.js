@@ -1,6 +1,6 @@
 export const handleSuccess = (data) => {
-    return {
-        data,
-        success: true
-    }
+  return {
+    data,
+    success: true,
+  };
 };
