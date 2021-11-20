@@ -220,7 +220,7 @@ const Clients = (props) => {
                 margin="normal"
                 maxLength={8}
                 fullWidth
-                //onBlur={() => searchAddress()}
+                onBlur={() => searchAddress()}
                 value={client.cep}
                 onChange={(e) => handleChange('cep', e.target.value)}
               />
