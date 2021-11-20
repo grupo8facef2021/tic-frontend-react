@@ -10,7 +10,8 @@ import CreateUsers from '../pages/users/CreateUsers';
 import ListUsers from '../pages/users/ListUsers';
 import ListEmployees from '../pages/employees/ListEmployees';
 import CreateEmployees from '../pages/employees/CreateEmployees';
-
+import ListClients from '../pages/clients/ListClients';
+import CreateClients from '../pages/clients/CreateClients';
 class Router extends Component {
   render() {
     return (
@@ -22,6 +23,8 @@ class Router extends Component {
           <CustomRoute exact path="/usuarios/:id" component={CreateUsers} isPrivate />
           <CustomRoute exact path="/funcionarios" component={ListEmployees} isPrivate />
           <CustomRoute exact path="/funcionarios/:id" component={CreateEmployees} isPrivate />
+          <CustomRoute exact path="/clientes" component={ListClients} isPrivate />
+          <CustomRoute exact path="/clientes/:id" component={CreateClients} isPrivate />
           <Redirect from="*" to={'/'} />
         </Switch>
       </ContextProvider>

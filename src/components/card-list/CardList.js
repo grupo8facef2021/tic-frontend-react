@@ -3,11 +3,18 @@ import { CardListContainer } from './styles';
 import PropTypes from 'prop-types';
 import { Card } from '../card/Card';
 
-export const CardList = ({ dataList, templateCard }) => {
+export const CardList = ({ dataList, templateCard, onClick }) => {
   return (
     <CardListContainer>
       {dataList.map((data, i) => {
-        return <Card key={i} data={data} title={data.name} templateCard={templateCard}></Card>;
+        return (
+          <Card
+            onClick={onClick}
+            key={i}
+            data={data}
+            title={data.name}
+            templateCard={templateCard}></Card>
+        );
       })}
     </CardListContainer>
   );
@@ -16,4 +23,5 @@ export const CardList = ({ dataList, templateCard }) => {
 CardList.propTypes = {
   dataList: PropTypes.array,
   templateCard: PropTypes.array,
+  onClick: PropTypes.func,
 };
