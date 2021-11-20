@@ -70,6 +70,7 @@ const Login = () => {
               <TextField
                 label="Email"
                 variant="outlined"
+                size="small"
                 type="email"
                 margin="normal"
                 fullWidth
@@ -88,6 +89,7 @@ const Login = () => {
                 type="password"
                 margin="normal"
                 fullWidth
+                size="small"
                 error={passwordError}
                 value={user.password}
                 placeholder={'******'}

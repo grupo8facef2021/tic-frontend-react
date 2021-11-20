@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Row, Col, Container } from 'react-bootstrap';
 import { Header, Content, CardContent, ContentFooter } from '../../components/layout/Layout';
 import { colors } from '../../utils/colors';
-import { Text } from '../../components';
+import { Modal, Text } from '../../components';
 import { TextField, Button } from '@material-ui/core';
 import { Context } from '../../context/authContext';
 import { useAlert } from 'react-alert';
@@ -12,7 +12,6 @@ import { useHistory } from 'react-router';
 import {
   createEmployee,
   getEmployee,
-  updateEmploye,
   deleteEmployee,
   updateEmployee,
 } from '../../services/employees/emplyoyeesService';
@@ -25,6 +24,7 @@ const Employees = (props) => {
     name: '',
     role: '',
   });
+  const [modal, setModal] = useState(false);
   const { setLoading } = useContext(Context);
 
   useEffect(async () => {
@@ -87,7 +87,7 @@ const Employees = (props) => {
   };
 
   const handleDelete = () => {
-    console.log('abre modal');
+    setModal(true);
   };
 
   const remove = async () => {
@@ -96,13 +96,19 @@ const Employees = (props) => {
     if (!response.success) {
       alert.error(response.message);
     } else {
+      setModal(false);
       alert.success('Funcionário excluído com sucesso!');
-      clearEmployee();
     }
   };
 
   return (
     <Container fluid>
+      <Modal
+        title={'Tem certeza que deseja excluir este funcionário?'}
+        toggle={modal}
+        onClickCancel={() => setModal(false)}
+        onClickConfirm={() => remove()}
+      />
       <Content>
         <Header>
           <Text large text={employee.id ? 'Editar Funcionário' : 'Novo Funcionário'} />
@@ -114,6 +120,7 @@ const Employees = (props) => {
                 label="Nome"
                 variant="outlined"
                 margin="normal"
+                size="small"
                 fullWidth
                 value={employee.name}
                 onChange={(e) => handleChange('name', e.target.value)}
@@ -124,6 +131,7 @@ const Employees = (props) => {
                 label="Cargo"
                 variant="outlined"
                 margin="normal"
+                size="small"
                 fullWidth
                 value={employee.role}
                 onChange={(e) => handleChange('role', e.target.value)}

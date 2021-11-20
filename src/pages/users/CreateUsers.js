@@ -79,6 +79,7 @@ const Users = () => {
                 label="Nome"
                 variant="outlined"
                 margin="normal"
+                size="small"
                 fullWidth
                 value={user.name}
                 onChange={(e) => handleChange('name', e.target.value)}
@@ -88,6 +89,7 @@ const Users = () => {
               <TextField
                 label="Email"
                 variant="outlined"
+                size="small"
                 margin="normal"
                 fullWidth
                 value={user.email}
@@ -99,6 +101,7 @@ const Users = () => {
                 select
                 margin="normal"
                 label="Nível"
+                size="small"
                 value={user.level}
                 variant="outlined"
                 onChange={(e) => handleChange('level', e.target.value)}
@@ -115,6 +118,7 @@ const Users = () => {
                 type="password"
                 label="Senha"
                 variant="outlined"
+                size="small"
                 margin="normal"
                 fullWidth
                 value={user.password}
@@ -127,6 +131,7 @@ const Users = () => {
                 label="Confirmar senha"
                 variant="outlined"
                 margin="normal"
+                size="small"
                 fullWidth
                 value={user.confirmPassword}
                 onChange={(e) => handleChange('confirmPassword', e.target.value)}
