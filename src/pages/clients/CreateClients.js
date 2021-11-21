@@ -44,7 +44,9 @@ const Clients = (props) => {
   useEffect(async () => {
     const { id } = props.match.params;
 
+    setLoading(true)
     const response = await getClient(id);
+    setLoading(false)
 
     if (response.success) {
       setClient({
@@ -88,28 +90,27 @@ const Clients = (props) => {
   const handleSave = async () => {
     setLoading(true);
 
-    if (client.id) {
-      const { id, name, cpf, phone, email, cep, street, neighborhood, number } = client;
-      const response = await updateClient({
+    const { id, name, cpf, phone, email, cep, street, neighborhood, number } = client;
+
+    if (id) {
+      const response = await updateClient(
         id,
-        name,
-        cpf,
-        phone,
-        email,
-        cep,
-        street,
-        neighborhood,
-        number,
-      });
+        {
+          name,
+          phone,
+          email,
+          cep,
+          street,
+          neighborhood,
+          number,
+        });
 
       if (!response.success) {
         alert.error(response.message);
       } else {
         alert.success('Cliente editado com sucesso!');
-        clearEmployee();
       }
     } else {
-      const { name, cpf, phone, email, cep, street, neighborhood, number } = client;
       const response = await createClient({
         name,
         cpf,
@@ -137,7 +138,12 @@ const Clients = (props) => {
   };
 
   const remove = async () => {
-    const response = await deleteClient(client.id);
+    setLoading(true)
+
+    const { id } = client;
+    const response = await deleteClient(id);
+
+    setLoading(false)
 
     if (!response.success) {
       alert.error(response.message);
@@ -149,13 +155,22 @@ const Clients = (props) => {
   };
 
   const searchAddress = async () => {
+    setLoading(true)
     const response = await getAddress(client.cep);
 
     if (!response.success) {
       alert.error(response.message);
     } else {
-      alert.success('CEP inválido');
+      const { data } = response
+
+      setClient({
+        ...client,
+        street: data.logradouro,
+        neighborhood: data.bairro
+      })
     }
+
+    setLoading(false)
   };
 
   return (
@@ -190,6 +205,7 @@ const Clients = (props) => {
                 variant="outlined"
                 margin="normal"
                 fullWidth
+                disabled={client.id}
                 value={client.cpf}
                 onChange={(e) => handleChange('cpf', e.target.value)}
               />
@@ -227,7 +243,7 @@ const Clients = (props) => {
                 margin="normal"
                 maxLength={8}
                 fullWidth
-                onBlur={() => searchAddress()}
+                onBlur={searchAddress}
                 value={client.cep}
                 onChange={(e) => handleChange('cep', e.target.value)}
               />
@@ -275,7 +291,7 @@ const Clients = (props) => {
             {client.id && (
               <Button
                 size="large"
-                style={{ background: colors.danger, color: colors.white }}
+                style={{ color: colors.danger, borderColor: colors.danger }}
                 variant="outlined"
                 onClick={handleDelete}>
                 Excluir

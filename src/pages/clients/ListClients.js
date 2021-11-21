@@ -89,19 +89,19 @@ const Clients = () => {
               templateCard={[
                 {
                   key: 'Nome',
-                  accessor: 'name',
+                  value: value => value.name
                 },
                 {
                   key: 'Telefone',
-                  accessor: 'phone',
+                  value: value => value.phone
                 },
                 {
                   key: 'Endereço',
-                  accessor: 'street',
+                  value: value => value.street
                 },
                 {
                   key: 'CPF',
-                  accessor: 'cpf',
+                  value: value => value.cpf
                 },
               ]}
               onCardClick={handleCardClick}

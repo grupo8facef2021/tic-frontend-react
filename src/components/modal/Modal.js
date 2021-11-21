@@ -17,8 +17,10 @@ export const CustomModal = ({ toggle, title, onClickConfirm, onClickCancel }) =>
           <Col xs={6}>
             <Button
               size="normal"
-              style={{ background: colors.primary, color: 'white' }}
-              variant="contained"
+              style={{
+                background: colors.white,
+                color: colors.primary
+              }}
               onClick={onClickCancel}>
               Cancelar
             </Button>
@@ -27,10 +29,9 @@ export const CustomModal = ({ toggle, title, onClickConfirm, onClickCancel }) =>
             <Button
               size="normal"
               style={{
-                borderColor: colors.danger,
-                color: colors.danger,
+                background: colors.danger,
+                color: colors.white,
               }}
-              variant="outlined"
               onClick={onClickConfirm}>
               Excluir
             </Button>

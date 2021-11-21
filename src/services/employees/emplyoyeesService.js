@@ -12,8 +12,8 @@ export const createEmployee = async (employee) => {
   return await create('/employees', employee);
 };
 
-export const updateEmployee = async (employee) => {
-  return await update('/employees', employee);
+export const updateEmployee = async (id, employee) => {
+  return await update(`/employees/${id}`, employee);
 };
 
 export const deleteEmployee = async (id) => {

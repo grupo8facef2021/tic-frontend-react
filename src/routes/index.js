@@ -14,6 +14,7 @@ import ListClients from '../pages/clients/ListClients';
 import CreateClients from '../pages/clients/CreateClients';
 import ListActivities from '../pages/activities/ListActivities';
 import CreateActivities from '../pages/activities/CreateActivities';
+import Logout from '../pages/logout/Logout';
 
 class Router extends Component {
   render() {
@@ -30,6 +31,7 @@ class Router extends Component {
           <CustomRoute exact path="/clientes/:id" component={CreateClients} isPrivate />
           <CustomRoute exact path="/atividades" component={ListActivities} isPrivate />
           <CustomRoute exact path="/atividades/:id" component={CreateActivities} isPrivate />
+          <CustomRoute exact path="/logout" component={Logout} />
           <Redirect from="*" to={'/dashboard'} />
         </Switch>
       </ContextProvider>

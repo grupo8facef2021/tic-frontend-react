@@ -13,7 +13,9 @@ export const CardList = ({ dataList, templateCard, onCardClick }) => {
             key={i}
             data={data}
             title={data.name}
-            templateCard={templateCard}></Card>
+            templateCard={templateCard}>
+
+          </Card>
         );
       })}
     </CardListContent>

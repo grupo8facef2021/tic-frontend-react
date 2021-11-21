@@ -33,7 +33,7 @@ export const update = async (path, payload) => {
 
 export const remove = async (path) => {
   try {
-    const { data } = await axios.put(path);
+    const { data } = await axios.delete(path);
     return handleSuccess(data);
   } catch (error) {
     return handleErrors(error);

@@ -1,5 +1,18 @@
-import { get } from '../services/commonService';
+import axios from 'axios'
+import { handleErrors } from './handleErrors';
 
 export const getAddress = async (cep) => {
-  return await get(`https://viacep.com.br/ws/${cep}/json/`);
+  try {
+    const {data} = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+    return {
+      success: true,
+      data
+    }
+
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Não foi possível consultar seu CEP'
+    }
+  }
 };

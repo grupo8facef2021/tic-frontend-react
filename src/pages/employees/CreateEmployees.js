@@ -36,8 +36,10 @@ const Employees = (props) => {
   useEffect(async () => {
     const { id } = props.match.params;
 
+    setLoading(true)
     const response = await getEmployee(id);
-
+    setLoading(false)
+    
     if (response.success) {
       setEmployee({
         id: response.data.id,
@@ -67,18 +69,17 @@ const Employees = (props) => {
   const handleSave = async () => {
     setLoading(true);
 
-    if (employee.id) {
-      const { id, name, role } = employee;
-      const response = await updateEmployee({ id, name, role });
+    const { id, name, role } = employee;
+
+    if (id) {
+      const response = await updateEmployee(id, { name, role });
 
       if (!response.success) {
         alert.error(response.message);
       } else {
         alert.success('Funcionário editado com sucesso !');
-        clearEmployee();
       }
     } else {
-      const { name, role } = employee;
       const response = await createEmployee({ name, role });
 
       if (!response.success) {
@@ -97,13 +98,19 @@ const Employees = (props) => {
   };
 
   const remove = async () => {
-    const response = await deleteEmployee(employee.id);
+    setLoading(true)
+
+    const { id } = employee;
+    const response = await deleteEmployee(id);
+
+    setLoading(false)
 
     if (!response.success) {
       alert.error(response.message);
     } else {
       setModal(false);
       alert.success('Funcionário excluído com sucesso!');
+      history.push('/funcionarios')
     }
   };
 
@@ -150,7 +157,7 @@ const Employees = (props) => {
             {employee.id && (
               <Button
                 size="large"
-                style={{ background: colors.danger, color: colors.white }}
+                style={{ color: colors.danger, borderColor: colors.danger }}
                 variant="outlined"
                 onClick={handleDelete}>
                 Excluir

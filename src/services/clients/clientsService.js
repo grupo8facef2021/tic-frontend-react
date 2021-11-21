@@ -12,8 +12,8 @@ export const createClient = async (client) => {
   return await create('/clients', client);
 };
 
-export const updateClient = async (client) => {
-  return await update('/clients', client);
+export const updateClient = async (id, client) => {
+  return await update(`/clients/${id}`, client);
 };
 
 export const deleteClient = async (id) => {

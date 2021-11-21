@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Row, Col, Container } from 'react-bootstrap';
 import {
   Header,
@@ -8,19 +9,21 @@ import {
   ContentFooterRight,
 } from '../../components/layout/Layout';
 import { colors } from '../../utils/colors';
-import { Text } from '../../components';
-import { createUser } from '../../services/users/usersService';
+import { levelContant } from '../../utils/constants';
+import { Text, Modal } from '../../components';
+import { createUser, deleteUser, getUser, updateUser } from '../../services/users/usersService';
 
 import { TextField, MenuItem, Button } from '@material-ui/core';
 import { Context } from '../../context/authContext';
 import { useAlert } from 'react-alert';
 import { useHistory } from 'react-router';
 
-const Users = () => {
+const Users = (props) => {
   const { setLoading } = useContext(Context);
   const alert = useAlert();
   const history = useHistory();
 
+  const [modal, setModal] = useState(false)
   const [user, setUser] = useState({
     id: null,
     name: '',
@@ -30,16 +33,25 @@ const Users = () => {
     confirmPassword: '',
   });
 
-  const values = [
-    {
-      value: 1,
-      label: 'Administrador',
-    },
-    {
-      value: 2,
-      label: 'Comum',
-    },
-  ];
+  useEffect(async () => {
+    const { id } = props.match.params;
+
+    setLoading(true)
+    const response = await getUser(id);
+    setLoading(false)
+
+    if (response.success) {
+      setUser({
+        ...user,
+        id: response.data.id,
+        name: response.data.name,
+        email: response.data.email,
+        level: response.data.level
+      });
+    } else {
+      history.push('/usuarios/novo');
+    }
+  }, []);
 
   const handleChange = (key, value) => {
     setUser({ ...user, [key]: value });
@@ -57,29 +69,66 @@ const Users = () => {
   };
 
   const handleBack = () => {
-    history.goBack();
-  };
+    history.push('/usuarios')
+  }
 
   const handleSave = async () => {
     setLoading(true);
 
-    const { name, email, level, password } = user;
-    const response = await createUser({ name, email, level, password });
+    const { id, name, email, level, password } = user;
 
-    if (!response.success) {
-      alert.error(response.message);
+    if (id) {
+      const response = await updateUser(id, { name, level, password });
+
+      if (!response.success) {
+        alert.error(response.message);
+      } else {
+        alert.success('Usuário alterado com sucesso !');
+      }
+
     } else {
-      alert.success('Usuário cadastrado com sucesso !');
-      clearUser();
+      const response = await createUser({ name, email, level, password });
+
+      if (!response.success) {
+        alert.error(response.message);
+      } else {
+        alert.success('Usuário cadastrado com sucesso !');
+        clearUser();
+      }
     }
 
     setLoading(false);
   };
 
-  const handleDelete = () => {};
+  const handleDelete = () => {
+    setModal(true)
+  }
+
+  const remove = async () => {
+    setLoading(true);
+
+    const { id } = user;
+    const response = await deleteUser(id);
+
+    setLoading(false)
+
+    if (!response.success) {
+      alert.error(response.message);
+    } else {
+      setModal(false);
+      alert.success('Usuário excluído com sucesso !');
+      history.push('/usuarios')
+    }
+  }
 
   return (
     <Container fluid>
+      <Modal
+        title={'Tem certeza que deseja excluir este usuário?'}
+        toggle={modal}
+        onClickCancel={() => setModal(false)}
+        onClickConfirm={() => remove()}
+      />
       <Content>
         <Header>
           <Text large text="Novo Usuário" />
@@ -104,6 +153,7 @@ const Users = () => {
                 size="small"
                 margin="normal"
                 fullWidth
+                disabled={user.id}
                 value={user.email}
                 onChange={(e) => handleChange('email', e.target.value)}
               />
@@ -118,7 +168,7 @@ const Users = () => {
                 variant="outlined"
                 onChange={(e) => handleChange('level', e.target.value)}
                 fullWidth>
-                {values.map((option) => (
+                {levelContant.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.label}
                   </MenuItem>
@@ -156,7 +206,7 @@ const Users = () => {
             {user.id && (
               <Button
                 size="large"
-                style={{ background: colors.danger, color: colors.white }}
+                style={{ color: colors.danger, borderColor: colors.danger }}
                 variant="outlined"
                 onClick={handleDelete}>
                 Excluir
@@ -188,6 +238,10 @@ const Users = () => {
       </Content>
     </Container>
   );
+};
+
+Users.propTypes = {
+  match: PropTypes.object,
 };
 
 export default Users;

@@ -12,14 +12,14 @@ export const Card = ({ title, templateCard, data, onClick }) => {
         {templateCard.map((t, i) => {
           return (
             <p key={i}>
-              {t.key}: {data[t.accessor]}
+              {t.key}: {t.value(data)}
             </p>
-          );
+          )
         })}
       </div>
     </CardContent>
-  );
-};
+  )
+}
 
 Card.propTypes = {
   title: PropTypes.string,

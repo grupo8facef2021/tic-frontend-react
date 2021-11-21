@@ -89,11 +89,11 @@ const Employees = () => {
               templateCard={[
                 {
                   key: 'Nome',
-                  accessor: 'name',
+                  value: value => value.name
                 },
                 {
                   key: 'Cargo',
-                  accessor: 'role',
+                  value: value => value.role
                 },
               ]}
               onCardClick={handleCardClick}
