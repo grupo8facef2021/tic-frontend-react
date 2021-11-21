@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
-import { Header, Content, CardContent } from '../../components/layout/Layout';
+import { Header, Content, CardContent, HeaderAction } from '../../components/layout/Layout';
 import { colors } from '../../utils/colors';
 import { Text, CardList } from '../../components';
 import { TextField, Button } from '@material-ui/core';
@@ -40,28 +40,40 @@ const Clients = () => {
   };
 
   const handleCardClick = (clientId) => {
-    history.push(`/clientes/${clientId}`)
-  }
+    history.push(`/clientes/${clientId}`);
+  };
 
   return (
     <Container fluid>
       <Content>
         <Header>
           <Text large text="Clientes" />
+          <HeaderAction>
+            <Button
+              size="large"
+              style={{ color: 'white', background: colors.primary }}
+              variant="outlined"
+              onClick={() => history.push('/clientes/novo')}>
+              + Adicionar
+            </Button>
+          </HeaderAction>
         </Header>
         <CardContent>
-          <Row lg={2} sm={1} xs={1}>
-            <Col md={7}>
+          <Row>
+            <Col>
               <TextField
                 label="Nome"
                 size="small"
+                margin="normal"
                 variant="outlined"
                 fullWidth
                 value={search.name}
                 onChange={(e) => handleChange('name', e.target.value)}
               />
             </Col>
-            <Col md={2}>
+          </Row>
+          <Row align="right">
+            <Col>
               <Button
                 size="large"
                 style={{ color: 'white', background: colors.primary }}
@@ -70,17 +82,8 @@ const Clients = () => {
                 Pesquisar
               </Button>
             </Col>
-            <Col md={3}>
-              <Button
-                size="large"
-                style={{ color: 'white', background: colors.primary }}
-                variant="outlined"
-                onClick={() => history.push('/clientes/novo')}>
-                Novo Cliente
-              </Button>
-            </Col>
           </Row>
-          <Row lg={1} sm={1} xs={1}>
+          <Row>
             <CardList
               dataList={clients}
               templateCard={[

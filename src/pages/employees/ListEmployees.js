@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
-import { Header, Content, CardContent } from '../../components/layout/Layout';
+import { Header, Content, CardContent, HeaderAction } from '../../components/layout/Layout';
 import { colors } from '../../utils/colors';
 import { Text, CardList } from '../../components';
 import { TextField, Button } from '@material-ui/core';
@@ -40,47 +40,46 @@ const Employees = () => {
   };
 
   const handleCardClick = (employeeId) => {
-    history.push(`/funcionarios/${employeeId}`)
-  }
+    history.push(`/funcionarios/${employeeId}`);
+  };
 
   return (
     <Container fluid>
       <Content>
         <Header>
           <Text large text="Funcionários" />
+          <HeaderAction>
+            <Button
+              size="large"
+              style={{ color: 'white', background: colors.primary }}
+              variant="outlined"
+              onClick={() => history.push('/funcionarios/novo')}>
+              + Adicionar
+            </Button>
+          </HeaderAction>
         </Header>
         <CardContent>
-          <Row lg={2} sm={1} xs={1}>
+          <Row>
             <Col>
-              <Row lg={2}>
-                <Col>
-                  <TextField
-                    label="Nome"
-                    size="small"
-                    variant="outlined"
-                    fullWidth
-                    value={search.name}
-                    onChange={(e) => handleChange('name', e.target.value)}
-                  />
-                </Col>
-                <Col>
-                  <Button
-                    size="large"
-                    style={{ color: 'white', background: colors.primary }}
-                    variant="outlined"
-                    onClick={handleSearch}>
-                    Pesquisar
-                  </Button>
-                </Col>
-              </Row>
+              <TextField
+                label="Nome"
+                size="small"
+                margin="normal"
+                variant="outlined"
+                fullWidth
+                value={search.name}
+                onChange={(e) => handleChange('name', e.target.value)}
+              />
             </Col>
-            <Col style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          </Row>
+          <Row align="right">
+            <Col>
               <Button
                 size="large"
                 style={{ color: 'white', background: colors.primary }}
                 variant="outlined"
-                onClick={() => history.push('/funcionarios/novo')}>
-                Novo Usuário
+                onClick={handleSearch}>
+                Pesquisar
               </Button>
             </Col>
           </Row>

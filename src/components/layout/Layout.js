@@ -41,22 +41,22 @@ export const ContentFooter = styled(CommonDiv)`
   padding-bottom: 2rem;
   justify-content: space-between;
 
-  @media ${device.mobileL}{
+  @media ${device.mobileL} {
     flex-direction: column;
 
     div {
       width: 100%;
       flex-direction: column;
-      margin-bottom: 1rem
+      margin-bottom: 1rem;
     }
 
     button {
-      width: 100%
+      width: 100%;
     }
-  };
+  } ;
 `;
 
-export const ContentFooterRigth = styled.div`
+export const ContentFooterRight = styled.div`
   width: 14rem;
   display: flex;
   justify-content: space-between;

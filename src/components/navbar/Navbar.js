@@ -34,49 +34,25 @@ export class Navbar extends Component {
             this.setState({ navbar: !this.state.navbar });
           }}></Modal>
         <Ul open={this.state.navbar}>
-          <NavLink
-            onClick={() => {
-              this.setState({ navbar: !this.state.navbar });
-            }}
-            to="/dashboard">
+          <NavLink to="/dashboard">
             <li>Dashboard</li>
           </NavLink>
-          <NavLink
-            onClick={() => {
-              this.setState({ navbar: !this.state.navbar });
-            }}
-            to="/atividades">
+          <NavLink to="/atividades">
             <li>Atividades</li>
           </NavLink>
-          <NavLink
-            onClick={() => {
-              this.setState({ navbar: !this.state.navbar });
-            }}
-            to="/clientes">
+          <NavLink to="/clientes">
             <li>Clientes</li>
           </NavLink>
-          <NavLink
-            onClick={() => {
-              this.setState({ navbar: !this.state.navbar });
-            }}
-            to="/usuarios">
+          <NavLink to="/usuarios">
             <li>Usuários</li>
           </NavLink>
-          <NavLink
-            onClick={() => {
-              this.setState({ navbar: !this.state.navbar });
-            }}
-            to="/funcionarios">
+          <NavLink to="/funcionarios">
             <li>Funcionários</li>
           </NavLink>
-          <NavLink
-            onClick={() => {
-              this.setState({ navbar: !this.state.navbar });
-            }}
-            to="/situacoes">
+          <NavLink to="/situacoes">
             <li>Situações</li>
           </NavLink>
-          <NavLink to="/situacoes">
+          <NavLink to="/logout">
             <li>Sair</li>
           </NavLink>
         </Ul>

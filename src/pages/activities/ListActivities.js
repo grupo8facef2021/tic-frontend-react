@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
-import { Header, Content, CardContent } from '../../components/layout/Layout';
+import { Header, Content, CardContent, HeaderAction } from '../../components/layout/Layout';
 import { colors } from '../../utils/colors';
 import { Text, CardList } from '../../components';
 import { TextField, Button, MenuItem } from '@material-ui/core';
@@ -68,44 +68,35 @@ const Activities = () => {
       <Content>
         <Header>
           <Text large text="Atividades" />
+          <HeaderAction>
+            <Button
+              size="large"
+              style={{ color: 'white', background: colors.primary }}
+              variant="outlined"
+              onClick={() => history.push('/atividades/novo')}>
+              + Adicionar
+            </Button>
+          </HeaderAction>
         </Header>
         <CardContent>
-          <Row lg={3} sm={1} xs={1}>
+          <Row lg={3} sm={1}>
             <Col md={6}>
               <TextField
                 label="Título"
                 size="small"
                 variant="outlined"
                 fullWidth
+                margin="normal"
                 value={search.title}
                 onChange={(e) => handleChange('title', e.target.value)}
               />
             </Col>
             <Col md={3}>
-              <Button
-                size="large"
-                style={{ color: 'white', background: colors.primary }}
-                variant="outlined"
-                onClick={handleSearch}>
-                Pesquisar
-              </Button>
-            </Col>
-            <Col md={3}>
-              <Button
-                size="large"
-                style={{ color: 'white', background: colors.primary }}
-                variant="outlined"
-                onClick={() => history.push('/atividades/novo')}>
-                Nova Atividade
-              </Button>
-            </Col>
-          </Row>
-          <Row className="mt-3" lg={2} sm={1} xs={1}>
-            <Col md={3}>
               <TextField
                 select
                 label="Situação"
                 size="small"
+                margin="normal"
                 variant="outlined"
                 fullWidth
                 value={search.situation_id}
@@ -120,6 +111,7 @@ const Activities = () => {
             <Col md={3}>
               <TextField
                 select
+                margin="normal"
                 label="Funcionário"
                 size="small"
                 variant="outlined"
@@ -132,6 +124,18 @@ const Activities = () => {
                   </MenuItem>
                 ))}
               </TextField>
+            </Col>
+          </Row>
+          <Row align="right">
+            <Col md={9}></Col>
+            <Col md={3}>
+              <Button
+                size="large"
+                style={{ color: 'white', background: colors.primary }}
+                variant="outlined"
+                onClick={handleSearch}>
+                Pesquisar
+              </Button>
             </Col>
           </Row>
           <Row lg={1} sm={1} xs={1}>

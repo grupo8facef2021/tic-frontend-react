@@ -23,45 +23,25 @@ const Dashboard = () => {
   return (
     <Container fluid>
       <Content>
-        <Header />
-        <Row>
-          <Col>
-            <CardContent>
-              <Row>
-                <Col>
-                  <Text large text="Atividades" />
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <CardList
-                    dataList={activities}
-                    templateCard={[
-                      {
-                        key: 'Nome',
-                        accessor: 'name',
-                      },
-                      {
-                        key: 'Cargo',
-                        accessor: 'role',
-                      },
-                    ]}
-                  />
-                </Col>
-              </Row>
-            </CardContent>
-          </Col>
-          <Col>
-            <CardContent>
-              <Text large text="Fazendo" />
-            </CardContent>
-          </Col>
-          <Col>
-            <CardContent>
-              <Text large text="Concluído" />
-            </CardContent>
-          </Col>
-        </Row>
+        <Header>
+          <Text large text="Dashboard" />
+        </Header>
+        <CardContent>
+          <Row></Row>
+          <CardList
+            dataList={activities}
+            templateCard={[
+              {
+                key: 'Título',
+                accessor: 'title',
+              },
+              {
+                key: 'Cargo',
+                accessor: 'role',
+              },
+            ]}
+          />
+        </CardContent>
       </Content>
     </Container>
   );

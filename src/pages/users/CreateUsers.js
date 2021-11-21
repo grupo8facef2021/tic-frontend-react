@@ -1,19 +1,25 @@
 import React, { useState, useContext } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
-import { Header, Content, CardContent, ContentFooter, ContentFooterRigth } from '../../components/layout/Layout';
+import {
+  Header,
+  Content,
+  CardContent,
+  ContentFooter,
+  ContentFooterRight,
+} from '../../components/layout/Layout';
 import { colors } from '../../utils/colors';
 import { Text } from '../../components';
 import { createUser } from '../../services/users/usersService';
 
 import { TextField, MenuItem, Button } from '@material-ui/core';
 import { Context } from '../../context/authContext';
-import { useAlert } from 'react-alert'
+import { useAlert } from 'react-alert';
 import { useHistory } from 'react-router';
 
 const Users = () => {
   const { setLoading } = useContext(Context);
-  const alert = useAlert()
-  const history = useHistory()
+  const alert = useAlert();
+  const history = useHistory();
 
   const [user, setUser] = useState({
     id: null,
@@ -46,13 +52,13 @@ const Users = () => {
       email: '',
       level: 1,
       password: '',
-      confirmPassword: ''
-    })
-  }
+      confirmPassword: '',
+    });
+  };
 
   const handleBack = () => {
-    history.goBack()
-  }
+    history.goBack();
+  };
 
   const handleSave = async () => {
     setLoading(true);
@@ -70,9 +76,7 @@ const Users = () => {
     setLoading(false);
   };
 
-  const handleDelete = () => {
-
-  }
+  const handleDelete = () => {};
 
   return (
     <Container fluid>
@@ -149,7 +153,7 @@ const Users = () => {
         </CardContent>
         <ContentFooter>
           <div>
-            {user.id &&
+            {user.id && (
               <Button
                 size="large"
                 style={{ background: colors.danger, color: colors.white }}
@@ -157,10 +161,10 @@ const Users = () => {
                 onClick={handleDelete}>
                 Excluir
               </Button>
-            }
+            )}
           </div>
 
-          <ContentFooterRigth>
+          <ContentFooterRight>
             <div>
               <Button
                 size="large"
@@ -179,7 +183,7 @@ const Users = () => {
                 Salvar
               </Button>
             </div>
-          </ContentFooterRigth>
+          </ContentFooterRight>
         </ContentFooter>
       </Content>
     </Container>

@@ -1,7 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, Container } from 'react-bootstrap';
-import { Header, Content, CardContent, ContentFooter, ContentFooterRigth } from '../../components/layout/Layout';
+import {
+  Header,
+  Content,
+  CardContent,
+  ContentFooter,
+  ContentFooterRight,
+} from '../../components/layout/Layout';
 import { colors } from '../../utils/colors';
 import { Modal, Text } from '../../components';
 import { TextField, Button } from '@material-ui/core';
@@ -141,7 +147,7 @@ const Employees = (props) => {
         </CardContent>
         <ContentFooter>
           <div>
-            {employee.id &&
+            {employee.id && (
               <Button
                 size="large"
                 style={{ background: colors.danger, color: colors.white }}
@@ -149,10 +155,10 @@ const Employees = (props) => {
                 onClick={handleDelete}>
                 Excluir
               </Button>
-            }
+            )}
           </div>
 
-          <ContentFooterRigth>
+          <ContentFooterRight>
             <div>
               <Button
                 size="large"
@@ -171,7 +177,7 @@ const Employees = (props) => {
                 Salvar
               </Button>
             </div>
-          </ContentFooterRigth>
+          </ContentFooterRight>
         </ContentFooter>
       </Content>
     </Container>
