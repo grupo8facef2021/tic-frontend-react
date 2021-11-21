@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { device } from '../../utils/devices';
 
 export const CommonDiv = styled.div`
-  width: 70%;
+  width: 90%;
 
   @media ${device.laptop} {
     width: 95%;
@@ -14,6 +14,12 @@ export const Header = styled(CommonDiv)`
   flex-direction: row;
   padding-top: 2rem;
   padding-bottom: 2rem;
+  justify-content: space-between;
+`;
+
+export const HeaderAction = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export const Content = styled.div`
@@ -33,5 +39,25 @@ export const ContentFooter = styled(CommonDiv)`
   flex-direction: row;
   padding-top: 2rem;
   padding-bottom: 2rem;
-  justify-content: flex-end;
+  justify-content: space-between;
+
+  @media ${device.mobileL}{
+    flex-direction: column;
+
+    div {
+      width: 100%;
+      flex-direction: column;
+      margin-bottom: 1rem
+    }
+
+    button {
+      width: 100%
+    }
+  };
+`;
+
+export const ContentFooterRigth = styled.div`
+  width: 14rem;
+  display: flex;
+  justify-content: space-between;
 `;

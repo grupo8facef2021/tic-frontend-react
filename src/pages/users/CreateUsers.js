@@ -1,19 +1,22 @@
 import React, { useState, useContext } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
-import { Header, Content, CardContent, ContentFooter } from '../../components/layout/Layout';
+import { Header, Content, CardContent, ContentFooter, ContentFooterRigth } from '../../components/layout/Layout';
 import { colors } from '../../utils/colors';
 import { Text } from '../../components';
 import { createUser } from '../../services/users/usersService';
 
 import { TextField, MenuItem, Button } from '@material-ui/core';
 import { Context } from '../../context/authContext';
-import { useAlert } from 'react-alert';
+import { useAlert } from 'react-alert'
+import { useHistory } from 'react-router';
 
 const Users = () => {
   const { setLoading } = useContext(Context);
-  const alert = useAlert();
+  const alert = useAlert()
+  const history = useHistory()
 
   const [user, setUser] = useState({
+    id: null,
     name: '',
     email: '',
     level: 1,
@@ -38,17 +41,18 @@ const Users = () => {
 
   const clearUser = () => {
     setUser({
+      id: null,
       name: '',
       email: '',
       level: 1,
       password: '',
-      confirmPassword: '',
-    });
-  };
+      confirmPassword: ''
+    })
+  }
 
   const handleBack = () => {
-    alert('back');
-  };
+    history.goBack()
+  }
 
   const handleSave = async () => {
     setLoading(true);
@@ -65,6 +69,10 @@ const Users = () => {
 
     setLoading(false);
   };
+
+  const handleDelete = () => {
+
+  }
 
   return (
     <Container fluid>
@@ -140,26 +148,38 @@ const Users = () => {
           </Row>
         </CardContent>
         <ContentFooter>
-          <Row xs={2}>
-            <Col xs={6}>
+          <div>
+            {user.id &&
               <Button
-                size="normal"
+                size="large"
+                style={{ background: colors.danger, color: colors.white }}
+                variant="outlined"
+                onClick={handleDelete}>
+                Excluir
+              </Button>
+            }
+          </div>
+
+          <ContentFooterRigth>
+            <div>
+              <Button
+                size="large"
                 style={{ color: colors.primary, borderColor: colors.primary }}
                 variant="outlined"
                 onClick={handleBack}>
                 Voltar
               </Button>
-            </Col>
-            <Col xs={6}>
+            </div>
+            <div>
               <Button
-                size="normal"
+                size="large"
                 style={{ background: colors.primary, color: 'white' }}
                 variant="contained"
                 onClick={handleSave}>
                 Salvar
               </Button>
-            </Col>
-          </Row>
+            </div>
+          </ContentFooterRigth>
         </ContentFooter>
       </Content>
     </Container>

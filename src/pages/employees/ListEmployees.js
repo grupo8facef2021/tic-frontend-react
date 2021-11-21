@@ -39,6 +39,10 @@ const Employees = () => {
     setLoading(false);
   };
 
+  const handleCardClick = (employeeId) => {
+    history.push(`/funcionarios/${employeeId}`)
+  }
+
   return (
     <Container fluid>
       <Content>
@@ -93,6 +97,7 @@ const Employees = () => {
                   accessor: 'role',
                 },
               ]}
+              onCardClick={handleCardClick}
             />
           </Row>
         </CardContent>

@@ -39,6 +39,10 @@ const Clients = () => {
     setLoading(false);
   };
 
+  const handleCardClick = (clientId) => {
+    history.push(`/clientes/${clientId}`)
+  }
+
   return (
     <Container fluid>
       <Content>
@@ -97,6 +101,7 @@ const Clients = () => {
                   accessor: 'cpf',
                 },
               ]}
+              onCardClick={handleCardClick}
             />
           </Row>
         </CardContent>

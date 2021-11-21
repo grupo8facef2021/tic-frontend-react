@@ -30,7 +30,7 @@ class Router extends Component {
           <CustomRoute exact path="/clientes/:id" component={CreateClients} isPrivate />
           <CustomRoute exact path="/atividades" component={ListActivities} isPrivate />
           <CustomRoute exact path="/atividades/:id" component={CreateActivities} isPrivate />
-          <Redirect from="*" to={'/'} />
+          <Redirect from="*" to={'/dashboard'} />
         </Switch>
       </ContextProvider>
     );

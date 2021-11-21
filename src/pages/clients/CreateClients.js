@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, Container } from 'react-bootstrap';
-import { Header, Content, CardContent, ContentFooter } from '../../components/layout/Layout';
+import { Header, Content, CardContent, ContentFooter, ContentFooterRigth } from '../../components/layout/Layout';
 import { colors } from '../../utils/colors';
 import { Modal, Text } from '../../components';
 import { TextField, Button } from '@material-ui/core';
@@ -264,61 +264,38 @@ const Clients = (props) => {
           </Row>
         </CardContent>
         <ContentFooter>
-          {client.id ? (
-            <Row xs={3}>
-              <Col xs={4}>
-                <Button
-                  size="normal"
-                  style={{
-                    borderColor: colors.danger,
-                    color: colors.danger,
-                  }}
-                  variant="outlined"
-                  onClick={handleDelete}>
-                  Excluir
-                </Button>
-              </Col>
-              <Col xs={4}>
-                <Button
-                  size="normal"
-                  style={{ color: colors.primary, borderColor: colors.primary }}
-                  variant="outlined"
-                  onClick={handleBack}>
-                  Voltar
-                </Button>
-              </Col>
-              <Col xs={4}>
-                <Button
-                  size="normal"
-                  style={{ background: colors.primary, color: 'white' }}
-                  variant="contained"
-                  onClick={handleSave}>
-                  Salvar
-                </Button>
-              </Col>
-            </Row>
-          ) : (
-            <Row xs={2}>
-              <Col xs={6}>
-                <Button
-                  size="normal"
-                  style={{ color: colors.primary, borderColor: colors.primary }}
-                  variant="outlined"
-                  onClick={handleBack}>
-                  Voltar
-                </Button>
-              </Col>
-              <Col xs={6}>
-                <Button
-                  size="normal"
-                  style={{ background: colors.primary, color: 'white' }}
-                  variant="contained"
-                  onClick={handleSave}>
-                  Salvar
-                </Button>
-              </Col>
-            </Row>
-          )}
+          <div>
+            {client.id &&
+              <Button
+                size="large"
+                style={{ background: colors.danger, color: colors.white }}
+                variant="outlined"
+                onClick={handleDelete}>
+                Excluir
+              </Button>
+            }
+          </div>
+
+          <ContentFooterRigth>
+            <div>
+              <Button
+                size="large"
+                style={{ color: colors.primary, borderColor: colors.primary }}
+                variant="outlined"
+                onClick={handleBack}>
+                Voltar
+              </Button>
+            </div>
+            <div>
+              <Button
+                size="large"
+                style={{ background: colors.primary, color: 'white' }}
+                variant="contained"
+                onClick={handleSave}>
+                Salvar
+              </Button>
+            </div>
+          </ContentFooterRigth>
         </ContentFooter>
       </Content>
     </Container>
