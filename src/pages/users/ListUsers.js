@@ -2,9 +2,9 @@ import React, { useState, useContext } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import { Header, Content, CardContent, HeaderAction } from '../../components/layout/Layout';
 import { colors } from '../../utils/colors';
-import { levelContant } from '../../utils/constants';
-import { Text, CardList } from '../../components'
-import { getUsers } from '../../services/users/usersService'
+import { levelConstant } from '../../utils/constants';
+import { Text, CardList } from '../../components';
+import { getUsers } from '../../services/users/usersService';
 
 import { TextField, Button } from '@material-ui/core';
 import { Context } from '../../context/authContext';
@@ -89,11 +89,11 @@ const Users = () => {
               templateCard={[
                 {
                   key: 'Tipo',
-                  value: value => value.email,
+                  value: (value) => value.email,
                 },
                 {
                   key: 'Email',
-                  value: value => levelContant.find(lc => lc.value === value.level).label,
+                  value: (value) => levelConstant.find((lc) => lc.value === value.level).label,
                 },
               ]}
               onCardClick={handleCardClick}
