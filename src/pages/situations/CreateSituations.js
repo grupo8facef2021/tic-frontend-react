@@ -9,93 +9,92 @@ import {
   ContentFooterRight,
 } from '../../components/layout/Layout';
 import { colors } from '../../utils/colors';
-import { levelConstant } from '../../utils/constants';
-import { Text, Modal } from '../../components';
-import { createUser, deleteUser, getUser, updateUser } from '../../services/users/usersService';
-
-import { TextField, MenuItem, Button } from '@material-ui/core';
+import { colorConstant } from '../../utils/constants';
+import { Modal, Text } from '../../components';
+import { TextField, Button, MenuItem } from '@material-ui/core';
 import { Context } from '../../context/authContext';
 import { useAlert } from 'react-alert';
 import { useHistory } from 'react-router';
 
-const Users = (props) => {
-  const { setLoading } = useContext(Context);
+import {
+  createSituation,
+  getSituation,
+  updateSituation,
+  deleteSituation,
+} from '../../services/situations/situationService';
+
+const Situations = (props) => {
   const alert = useAlert();
   const history = useHistory();
+  const [situation, setSituation] = useState({
+    id: null,
+    description: '',
+    color: 1,
+  });
 
   const [modal, setModal] = useState(false);
-  const [user, setUser] = useState({
-    id: null,
-    name: '',
-    email: '',
-    level: 1,
-    password: '',
-    confirmPassword: '',
-  });
+  const { setLoading } = useContext(Context);
 
   useEffect(async () => {
     const { id } = props.match.params;
 
-    setLoading(true);
-    const response = await getUser(id);
-    setLoading(false);
+    setLoading(true)
+    const response = await getSituation(id);
+    setLoading(false)
+
 
     if (response.success) {
-      setUser({
-        ...user,
+      setSituation({
         id: response.data.id,
-        name: response.data.name,
-        email: response.data.email,
-        level: response.data.level,
+        description: response.data.description,
+        color: response.data.color,
       });
     } else {
-      history.push('/usuarios/novo');
+      history.push('/situacoes/novo');
     }
   }, []);
 
   const handleChange = (key, value) => {
-    setUser({ ...user, [key]: value });
+    setSituation({ ...situation, [key]: value });
   };
 
-  const clearUser = () => {
-    setUser({
-      id: null,
-      name: '',
-      email: '',
-      level: 1,
-      password: '',
-      confirmPassword: '',
+  const clearSituation = () => {
+    setSituation({
+      description: '',
+      color: '',
     });
   };
 
   const handleBack = () => {
-    history.push('/usuarios');
+    history.push('/situacoes');
   };
 
   const handleSave = async () => {
     setLoading(true);
 
-    const { id, name, email, level, password } = user;
+    console.log('teste')
+
+    const { id, description, color } = situation;
 
     if (id) {
-      const response = await updateUser(id, { name, level, password });
+      const response = await updateSituation(id, { description, color });
+
 
       if (!response.success) {
         alert.error(response.message);
       } else {
-        alert.success('Usuário alterado com sucesso !');
+        alert.success('Situação atualizada com sucesso!');
       }
     } else {
-      const response = await createUser({ name, email, level, password });
+      const response = await createSituation({ description, color });
 
       if (!response.success) {
         alert.error(response.message);
       } else {
-        alert.success('Usuário cadastrado com sucesso !');
-        clearUser();
+        alert.success('Situação cadastrado com sucesso !');
+        clearSituation();
       }
     }
-
     setLoading(false);
   };
 
@@ -104,10 +103,11 @@ const Users = (props) => {
   };
 
   const remove = async () => {
+
     setLoading(true);
 
-    const { id } = user;
-    const response = await deleteUser(id);
+    const { id } = situation;
+    const response = await deleteSituation(id);
 
     setLoading(false);
 
@@ -115,94 +115,58 @@ const Users = (props) => {
       alert.error(response.message);
     } else {
       setModal(false);
-      alert.success('Usuário excluído com sucesso !');
-      history.push('/usuarios');
+      alert.success('Situação excluída com sucesso! ');
+      history.push('/situacoes')
     }
   };
 
   return (
     <Container fluid>
       <Modal
-        title={'Tem certeza que deseja excluir este usuário?'}
+        title={'Tem certeza que deseja excluir essa situação?'}
         toggle={modal}
         onClickCancel={() => setModal(false)}
         onClickConfirm={() => remove()}
       />
       <Content>
         <Header>
-          <Text large text="Novo Usuário" />
+          <Text large text={situation.id ? 'Editar Situação' : 'Nova Situação'} />
         </Header>
         <CardContent>
           <Row lg={3} sm={1} xs={1}>
             <Col>
               <TextField
-                label="Nome"
+                label="Descrição"
                 variant="outlined"
                 margin="normal"
                 size="small"
                 fullWidth
-                value={user.name}
-                onChange={(e) => handleChange('name', e.target.value)}
-              />
-            </Col>
-            <Col>
-              <TextField
-                label="Email"
-                variant="outlined"
-                size="small"
-                margin="normal"
-                fullWidth
-                disabled={user.id}
-                value={user.email}
-                onChange={(e) => handleChange('email', e.target.value)}
+                value={situation.description}
+                onChange={(e) => handleChange('description', e.target.value)}
               />
             </Col>
             <Col>
               <TextField
                 select
                 margin="normal"
-                label="Nível"
+                label="Cor Situação"
                 size="small"
-                value={user.level}
+                value={situation.value}
                 variant="outlined"
-                onChange={(e) => handleChange('level', e.target.value)}
+                onChange={(e) => handleChange('color', e.target.value)}
                 fullWidth>
-                {levelConstant.map((option) => (
+                {colorConstant.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.label}
                   </MenuItem>
                 ))}
               </TextField>
             </Col>
-            <Col>
-              <TextField
-                type="password"
-                label="Senha"
-                variant="outlined"
-                size="small"
-                margin="normal"
-                fullWidth
-                value={user.password}
-                onChange={(e) => handleChange('password', e.target.value)}
-              />
-            </Col>
-            <Col>
-              <TextField
-                type="password"
-                label="Confirmar senha"
-                variant="outlined"
-                margin="normal"
-                size="small"
-                fullWidth
-                value={user.confirmPassword}
-                onChange={(e) => handleChange('confirmPassword', e.target.value)}
-              />
-            </Col>
           </Row>
         </CardContent>
         <ContentFooter>
           <div>
-            {user.id && (
+            {situation.id && (
               <Button
                 size="large"
                 style={{ color: colors.danger, borderColor: colors.danger }}
@@ -239,8 +203,8 @@ const Users = (props) => {
   );
 };
 
-Users.propTypes = {
+export default Situations;
+
+Situations.propTypes = {
   match: PropTypes.object,
 };
-
-export default Users;
