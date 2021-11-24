@@ -8,7 +8,7 @@ export const CardContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-left: 5px solid ${colors.primary};
+  border-left: 5px solid ${props => props.color};
   box-shadow: rgb(0 0 0 / 20%) 0px 4px 8px 0px;
   border-radius: 4px;
   cursor: pointer;

@@ -93,7 +93,7 @@ const Users = () => {
                     key={i}
                     data={data}
                     onClick={() => handleCardClick(data.id)}
-                    title={data.email}
+                    title={data.name}
                     color={colors.primary}
                     templateCard={[
                       {

@@ -12,6 +12,7 @@ import { getActivities } from '../../services/activities/activitiesService';
 import { getEmployees } from '../../services/employees/emplyoyeesService';
 import { getClients } from '../../services/clients/clientsService';
 import { getSituations } from '../../services/situations/situationService';
+import { colorCardConstant } from '../../utils/constants';
 
 const Activities = () => {
   const alert = useAlert();
@@ -175,7 +176,11 @@ const Activities = () => {
                     key={i}
                     onClick={() => handleCardClick(data.id)}
                     title={data.title}
-                    color={colors.primary}
+                    color={
+                      colorCardConstant.find(c => c.value === (
+                        situations.find(s => s.id === data.situation.id).color
+                      )).hex
+                    }
                     templateCard={[
                       {
                         key: 'Situação',

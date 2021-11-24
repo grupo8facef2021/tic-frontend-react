@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export const Card = ({ title, color, templateCard, onClick }) => {
   return (
-    <CardContent onClick={onClick}>
+    <CardContent onClick={onClick} color={color}>
       <div>
         <label>{title}</label>
       </div>
