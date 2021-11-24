@@ -40,7 +40,7 @@ const ListSituations = () => {
   };
 
   const handleCardClick = (situationId) => {
-    history.push(`/situacoes/${situationId}`)
+    history.push(`/situacoes/${situationId}`);
   };
 
   return (
@@ -54,34 +54,35 @@ const ListSituations = () => {
               style={{ color: 'white', background: colors.primary }}
               variant="outlined"
               onClick={() => history.push('/situacoes/novo')}>
-              +Adicionar
+              + Adicionar
             </Button>
           </HeaderAction>
         </Header>
         <CardContent>
-          <Row lg={2} sm={1} xs={1}>
+          <Row lg={3} sm={1} xs={1}>
+            <Col md={4}>
+              <TextField
+                label="Descrição"
+                size="small"
+                margin="normal"
+                variant="outlined"
+                fullWidth
+                value={search.name}
+                onChange={(e) => handleChange('descripition', e.target.value)}
+              />
+            </Col>
+            <Col md={4}></Col>
+            <Col md={4}></Col>
+          </Row>
+          <Row align="left">
             <Col>
-              <Row lg={2}>
-                <Col>
-                  <TextField
-                    label="Descripition"
-                    size="small"
-                    variant="outlined"
-                    fullWidth
-                    value={search.name}
-                    onChange={(e) => handleChange('descripition', e.target.value)}
-                  />
-                </Col>
-                <Col>
-                  <Button
-                    size="large"
-                    style={{ color: 'white', background: colors.primary }}
-                    variant="outlined"
-                    onClick={handleSearch}>
-                    Pesquisar
-                  </Button>
-                </Col>
-              </Row>
+              <Button
+                size="large"
+                style={{ color: 'white', background: colors.primary }}
+                variant="outlined"
+                onClick={handleSearch}>
+                Pesquisar
+              </Button>
             </Col>
           </Row>
           <Row lg={1} sm={1} xs={1}>
@@ -90,11 +91,11 @@ const ListSituations = () => {
               templateCard={[
                 {
                   key: 'Descrição',
-                  value: value => value.description
+                  value: (value) => value.description,
                 },
                 {
                   key: 'Cor',
-                  value: value => value.color
+                  value: (value) => value.color,
                 },
               ]}
               onCardClick={handleCardClick}

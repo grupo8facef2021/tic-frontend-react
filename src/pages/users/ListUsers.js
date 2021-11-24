@@ -59,8 +59,8 @@ const Users = () => {
           </HeaderAction>
         </Header>
         <CardContent>
-          <Row>
-            <Col>
+          <Row lg={3} sm={1} xs={1}>
+            <Col md={4}>
               <TextField
                 label="Nome"
                 size="small"
@@ -71,8 +71,10 @@ const Users = () => {
                 onChange={(e) => handleChange('name', e.target.value)}
               />
             </Col>
+            <Col md={4}></Col>
+            <Col md={4}></Col>
           </Row>
-          <Row align="right">
+          <Row align="left">
             <Col>
               <Button
                 size="large"

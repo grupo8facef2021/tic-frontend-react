@@ -10,18 +10,30 @@ import { useHistory } from 'react-router';
 
 import { getActivities } from '../../services/activities/activitiesService';
 import { getEmployees } from '../../services/employees/emplyoyeesService';
+import { getSituations } from '../../services/situations/situationService';
 
 const Activities = () => {
   const alert = useAlert();
   const history = useHistory();
 
-  useEffect(async () => {
-    const response = await getEmployees();
+  const [employees, setEmployees] = useState([]);
+  const [situations, setSituations] = useState([]);
+  const [activities, setActivities] = useState([]);
 
-    if (!response.success) {
-      alert.error(response.message);
+  useEffect(async () => {
+    const situations = await getSituations();
+
+    if (!situations.success) {
+      alert.error(situations.message);
     } else {
-      setEmployees(response.data);
+      setSituations(situations.data);
+    }
+
+    const employees = await getEmployees();
+    if (!employees.success) {
+      alert.error(employees.message);
+    } else {
+      setEmployees(employees.data);
     }
   }, []);
 
@@ -32,9 +44,6 @@ const Activities = () => {
     situation_id: '',
     employee_id: '',
   });
-
-  const [clients, setClients] = useState([]);
-  const [employees, setEmployees] = useState([]);
 
   const handleChange = (key, value) => {
     setSearch({ ...search, [key]: value });
@@ -56,7 +65,7 @@ const Activities = () => {
     if (!response.success) {
       alert.error(response.message);
     } else {
-      setClients(response.data);
+      setActivities(response.data);
       clearSearch();
     }
 
@@ -140,23 +149,23 @@ const Activities = () => {
           </Row>
           <Row lg={1} sm={1} xs={1}>
             <CardList
-              dataList={clients}
+              dataList={activities}
               templateCard={[
                 {
                   key: 'Nome',
-                  value: value => value.name
+                  value: (value) => value.name,
                 },
                 {
                   key: 'Telefone',
-                  value: value => value.phone
+                  value: (value) => value.phone,
                 },
                 {
                   key: 'Endereço',
-                  value: value => value.street
+                  value: (value) => value.street,
                 },
                 {
                   key: 'CPF',
-                  value: value => value.cpf
+                  value: (value) => value.cpf,
                 },
               ]}
             />

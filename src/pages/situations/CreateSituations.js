@@ -29,7 +29,7 @@ const Situations = (props) => {
   const [situation, setSituation] = useState({
     id: null,
     description: '',
-    color: 1,
+    color: '1',
   });
 
   const [modal, setModal] = useState(false);
@@ -38,10 +38,9 @@ const Situations = (props) => {
   useEffect(async () => {
     const { id } = props.match.params;
 
-    setLoading(true)
+    setLoading(true);
     const response = await getSituation(id);
-    setLoading(false)
-
+    setLoading(false);
 
     if (response.success) {
       setSituation({
@@ -72,13 +71,10 @@ const Situations = (props) => {
   const handleSave = async () => {
     setLoading(true);
 
-    console.log('teste')
-
     const { id, description, color } = situation;
 
     if (id) {
       const response = await updateSituation(id, { description, color });
-
 
       if (!response.success) {
         alert.error(response.message);
@@ -103,7 +99,6 @@ const Situations = (props) => {
   };
 
   const remove = async () => {
-
     setLoading(true);
 
     const { id } = situation;
@@ -116,7 +111,7 @@ const Situations = (props) => {
     } else {
       setModal(false);
       alert.success('Situação excluída com sucesso! ');
-      history.push('/situacoes')
+      history.push('/situacoes');
     }
   };
 
@@ -151,7 +146,7 @@ const Situations = (props) => {
                 margin="normal"
                 label="Cor Situação"
                 size="small"
-                value={situation.value}
+                value={situation.color}
                 variant="outlined"
                 onChange={(e) => handleChange('color', e.target.value)}
                 fullWidth>

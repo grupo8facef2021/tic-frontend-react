@@ -59,8 +59,8 @@ const Clients = () => {
           </HeaderAction>
         </Header>
         <CardContent>
-          <Row>
-            <Col>
+          <Row lg={3} sm={1} xs={1}>
+            <Col md={4}>
               <TextField
                 label="Nome"
                 size="small"
@@ -71,8 +71,10 @@ const Clients = () => {
                 onChange={(e) => handleChange('name', e.target.value)}
               />
             </Col>
+            <Col md={4}></Col>
+            <Col md={4}></Col>
           </Row>
-          <Row align="right">
+          <Row align="left">
             <Col>
               <Button
                 size="large"
@@ -89,19 +91,19 @@ const Clients = () => {
               templateCard={[
                 {
                   key: 'Nome',
-                  value: value => value.name
+                  value: (value) => value.name,
                 },
                 {
                   key: 'Telefone',
-                  value: value => value.phone
+                  value: (value) => value.phone,
                 },
                 {
                   key: 'Endereço',
-                  value: value => value.street
+                  value: (value) => value.street,
                 },
                 {
                   key: 'CPF',
-                  value: value => value.cpf
+                  value: (value) => value.cpf,
                 },
               ]}
               onCardClick={handleCardClick}
