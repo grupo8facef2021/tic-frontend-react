@@ -2,7 +2,8 @@ import React, { useState, useContext } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import { Header, Content, CardContent, HeaderAction } from '../../components/layout/Layout';
 import { colors } from '../../utils/colors';
-import { Text, CardList } from '../../components';
+import { colorCardConstant } from '../../utils/constants';
+import { Text, CardList, Card } from '../../components';
 import { TextField, Button } from '@material-ui/core';
 import { Context } from '../../context/authContext';
 import { useAlert } from 'react-alert';
@@ -86,20 +87,29 @@ const ListSituations = () => {
             </Col>
           </Row>
           <Row lg={1} sm={1} xs={1}>
-            <CardList
-              dataList={situations}
-              templateCard={[
-                {
-                  key: 'Descrição',
-                  value: (value) => value.description,
-                },
-                {
-                  key: 'Cor',
-                  value: (value) => value.color,
-                },
-              ]}
-              onCardClick={handleCardClick}
-            />
+            <CardList>
+              {situations.map((data, i) => {
+                return (
+                  <Card
+                    key={i}
+                    data={data}
+                    onClick={() => handleCardClick(data.id)}
+                    title={data.description}
+                    color={colorCardConstant.find(c => c.value === data.color).hex}
+                    templateCard={[
+                      {
+                        key: 'Descrição',
+                        value: data.description,
+                      },
+                      {
+                        key: 'Cor',
+                        value: colorCardConstant.find(c => c.value === data.color).label,
+                      },
+                    ]}>
+                  </Card>
+                );
+              })}
+            </CardList>
           </Row>
         </CardContent>
       </Content>

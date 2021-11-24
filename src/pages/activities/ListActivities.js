@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import { Header, Content, CardContent, HeaderAction } from '../../components/layout/Layout';
 import { colors } from '../../utils/colors';
-import { Text, CardList } from '../../components';
+import { Text, CardList, Card } from '../../components';
 import { TextField, Button, MenuItem } from '@material-ui/core';
 import { Context } from '../../context/authContext';
 import { useAlert } from 'react-alert';
@@ -10,32 +10,12 @@ import { useHistory } from 'react-router';
 
 import { getActivities } from '../../services/activities/activitiesService';
 import { getEmployees } from '../../services/employees/emplyoyeesService';
+import { getClients } from '../../services/clients/clientsService';
 import { getSituations } from '../../services/situations/situationService';
 
 const Activities = () => {
   const alert = useAlert();
   const history = useHistory();
-
-  const [employees, setEmployees] = useState([]);
-  const [situations, setSituations] = useState([]);
-  const [activities, setActivities] = useState([]);
-
-  useEffect(async () => {
-    const situations = await getSituations();
-
-    if (!situations.success) {
-      alert.error(situations.message);
-    } else {
-      setSituations(situations.data);
-    }
-
-    const employees = await getEmployees();
-    if (!employees.success) {
-      alert.error(employees.message);
-    } else {
-      setEmployees(employees.data);
-    }
-  }, []);
 
   const { setLoading } = useContext(Context);
 
@@ -44,6 +24,42 @@ const Activities = () => {
     situation_id: '',
     employee_id: '',
   });
+
+  const [clients, setClients] = useState([]);
+  const [employees, setEmployees] = useState([]);
+  const [activities, setActivities] = useState([]);
+  const [situations, setSituations] = useState([]);
+
+  useEffect(async () => {
+    const [
+      employeesResponse,
+      clientsResponse,
+      situationsResponse
+    ] = await Promise.all([
+      getEmployees(),
+      getClients(),
+      getSituations()
+    ])
+
+    if (!employeesResponse.success) {
+      alert.error(employeesResponse.message);
+    } else {
+      setEmployees(employeesResponse.data);
+    }
+
+    if (!clientsResponse.success) {
+      alert.error(clientsResponse.message);
+    } else {
+      setClients(clientsResponse.data);
+    }
+
+    if (!situationsResponse.success) {
+      alert.error(situationsResponse.message);
+    } else {
+      setSituations(situationsResponse.data);
+    }
+
+  }, []);
 
   const handleChange = (key, value) => {
     setSearch({ ...search, [key]: value });
@@ -71,6 +87,10 @@ const Activities = () => {
 
     setLoading(false);
   };
+
+  const handleCardClick = (activitieId) => {
+    history.push(`atividades/${activitieId}`)
+  }
 
   return (
     <Container fluid>
@@ -110,9 +130,9 @@ const Activities = () => {
                 fullWidth
                 value={search.situation_id}
                 onChange={(e) => handleChange('title', e.target.value)}>
-                {['teste', 'teste1', 'teste2'].map((option) => (
+                {situations.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
-                    {option.label}
+                    {option.description}
                   </MenuItem>
                 ))}
               </TextField>
@@ -148,27 +168,40 @@ const Activities = () => {
             </Col>
           </Row>
           <Row lg={1} sm={1} xs={1}>
-            <CardList
-              dataList={activities}
-              templateCard={[
-                {
-                  key: 'Nome',
-                  value: (value) => value.name,
-                },
-                {
-                  key: 'Telefone',
-                  value: (value) => value.phone,
-                },
-                {
-                  key: 'Endereço',
-                  value: (value) => value.street,
-                },
-                {
-                  key: 'CPF',
-                  value: (value) => value.cpf,
-                },
-              ]}
-            />
+            <CardList>
+              {activities.map((data, i) => {
+                return (
+                  <Card
+                    key={i}
+                    onClick={() => handleCardClick(data.id)}
+                    title={data.title}
+                    color={colors.primary}
+                    templateCard={[
+                      {
+                        key: 'Situação',
+                        value: situations.find(s => s.id === data.situation.id).description,
+                      },
+                      {
+                        key: 'Título',
+                        value: data.title,
+                      },
+                      {
+                        key: 'Veículo',
+                        value: `${data.vehicle_model} ${data.vehicle_color}`,
+                      },
+                      {
+                        key: 'Funcionário',
+                        value: employees.find(e => e.id === data.employee.id).name,
+                      },
+                      {
+                        key: 'Previsão de entraga',
+                        value: data.prevision_date,
+                      },
+                    ]}>
+                  </Card>
+                );
+              })}
+            </CardList>
           </Row>
         </CardContent>
       </Content>

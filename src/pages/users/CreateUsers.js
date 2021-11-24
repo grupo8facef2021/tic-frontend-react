@@ -166,7 +166,8 @@ const Users = (props) => {
                 value={user.level}
                 variant="outlined"
                 onChange={(e) => handleChange('level', e.target.value)}
-                fullWidth>
+                fullWidth
+              >
                 {levelConstant.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.label}

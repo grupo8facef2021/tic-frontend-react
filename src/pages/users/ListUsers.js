@@ -3,7 +3,7 @@ import { Row, Col, Container } from 'react-bootstrap';
 import { Header, Content, CardContent, HeaderAction } from '../../components/layout/Layout';
 import { colors } from '../../utils/colors';
 import { levelConstant } from '../../utils/constants';
-import { Text, CardList } from '../../components';
+import { Text, CardList, Card } from '../../components';
 import { getUsers } from '../../services/users/usersService';
 
 import { TextField, Button } from '@material-ui/core';
@@ -86,20 +86,29 @@ const Users = () => {
             </Col>
           </Row>
           <Row>
-            <CardList
-              dataList={users}
-              templateCard={[
-                {
-                  key: 'Tipo',
-                  value: (value) => value.email,
-                },
-                {
-                  key: 'Email',
-                  value: (value) => levelConstant.find((lc) => lc.value === value.level).label,
-                },
-              ]}
-              onCardClick={handleCardClick}
-            />
+            <CardList>
+              {users.map((data, i) => {
+                return (
+                  <Card
+                    key={i}
+                    data={data}
+                    onClick={() => handleCardClick(data.id)}
+                    title={data.email}
+                    color={colors.primary}
+                    templateCard={[
+                      {
+                        key: 'Email',
+                        value: data.email
+                      },
+                      {
+                        key: 'Tipo',
+                        value: levelConstant.find((lc) => lc.value === data.level).label
+                      }
+                    ]}>
+                  </Card>
+                );
+              })}
+            </CardList>
           </Row>
         </CardContent>
       </Content>

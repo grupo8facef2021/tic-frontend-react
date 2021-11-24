@@ -2,9 +2,9 @@ import React from 'react';
 import { CardContent } from './styles';
 import PropTypes from 'prop-types';
 
-export const Card = ({ title, templateCard, data, onClick }) => {
+export const Card = ({ title, color, templateCard, onClick }) => {
   return (
-    <CardContent onClick={() => onClick(data.id)}>
+    <CardContent onClick={onClick}>
       <div>
         <label>{title}</label>
       </div>
@@ -12,7 +12,7 @@ export const Card = ({ title, templateCard, data, onClick }) => {
         {templateCard.map((t, i) => {
           return (
             <p key={i}>
-              {t.key}: {t.value(data)}
+              {t.key}: {t.value}
             </p>
           )
         })}
@@ -22,8 +22,8 @@ export const Card = ({ title, templateCard, data, onClick }) => {
 }
 
 Card.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.func,
+  color: PropTypes.func,
   templateCard: PropTypes.array,
-  data: PropTypes.object,
   onClick: PropTypes.func,
 };

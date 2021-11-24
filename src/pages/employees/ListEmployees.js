@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import { Header, Content, CardContent, HeaderAction } from '../../components/layout/Layout';
 import { colors } from '../../utils/colors';
-import { Text, CardList } from '../../components';
+import { Text, CardList, Card } from '../../components';
 import { TextField, Button } from '@material-ui/core';
 import { Context } from '../../context/authContext';
 import { useAlert } from 'react-alert';
@@ -86,20 +86,29 @@ const Employees = () => {
             </Col>
           </Row>
           <Row lg={1} sm={1} xs={1}>
-            <CardList
-              dataList={employees}
-              templateCard={[
-                {
-                  key: 'Nome',
-                  value: (value) => value.name,
-                },
-                {
-                  key: 'Cargo',
-                  value: (value) => value.role,
-                },
-              ]}
-              onCardClick={handleCardClick}
-            />
+          <CardList>
+              {employees.map((data, i) => {
+                return (
+                  <Card
+                    key={i}
+                    data={data}
+                    onClick={() => handleCardClick(data.id)}
+                    title={data.name}
+                    color={colors.primary}
+                    templateCard={[
+                      {
+                        key: 'Nome',
+                        value: data.name
+                      },
+                      {
+                        key: 'Cargo',
+                        value: data.role
+                      },
+                    ]}>
+                  </Card>
+                );
+              })}
+            </CardList>
           </Row>
         </CardContent>
       </Content>

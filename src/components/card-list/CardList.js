@@ -1,29 +1,15 @@
 import React from 'react';
-import { CardListContent, CardListContainer } from './styles';
+import { CardListContent } from './styles';
 import PropTypes from 'prop-types';
-import { Card } from '../card/Card';
 
-export const CardList = ({ dataList, templateCard, onCardClick }) => {
+export const CardList = ({ children }) => {
   return (
     <CardListContent>
-      {dataList.map((data, i) => {
-        return (
-          <Card
-            onClick={onCardClick}
-            key={i}
-            data={data}
-            title={data.name}
-            templateCard={templateCard}>
-
-          </Card>
-        );
-      })}
+      {children}
     </CardListContent>
   );
 };
 
 CardList.propTypes = {
-  dataList: PropTypes.array,
-  templateCard: PropTypes.array,
-  onCardClick: PropTypes.func,
+  children: PropTypes.any
 };

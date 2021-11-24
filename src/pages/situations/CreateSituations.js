@@ -9,7 +9,7 @@ import {
   ContentFooterRight,
 } from '../../components/layout/Layout';
 import { colors } from '../../utils/colors';
-import { colorConstant } from '../../utils/constants';
+import { colorCardConstant } from '../../utils/constants';
 import { Modal, Text } from '../../components';
 import { TextField, Button, MenuItem } from '@material-ui/core';
 import { Context } from '../../context/authContext';
@@ -150,7 +150,7 @@ const Situations = (props) => {
                 variant="outlined"
                 onChange={(e) => handleChange('color', e.target.value)}
                 fullWidth>
-                {colorConstant.map((option) => (
+                {colorCardConstant.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.label}
                   </MenuItem>

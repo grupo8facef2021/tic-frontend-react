@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useAlert } from 'react-alert';
 import { Col, Container, Row } from 'react-bootstrap';
-import { CardList, Text } from '../../components';
+import { useHistory } from 'react-router';
+import { Card, CardList, Text } from '../../components';
 import { CardContent, Content, Header } from '../../components/layout/Layout';
 
 import { getActivities } from '../../services/activities/activitiesService';
+import { colors } from '../../utils/colors';
 
 const Dashboard = () => {
   const alert = useAlert();
   const [activities, setActivities] = useState([]);
+
+  const history = useHistory()
 
   useEffect(async () => {
     const response = await getActivities();
@@ -20,6 +24,10 @@ const Dashboard = () => {
     }
   }, [activities]);
 
+  const handleCardClick = (activitieId) => {
+    history.push(`atividades/${activitieId}`)
+  }
+
   return (
     <Container fluid>
       <Content>
@@ -28,19 +36,29 @@ const Dashboard = () => {
         </Header>
         <CardContent>
           <Row></Row>
-          <CardList
-            dataList={activities}
-            templateCard={[
-              {
-                key: 'Título',
-                accessor: 'title',
-              },
-              {
-                key: 'Cargo',
-                accessor: 'role',
-              },
-            ]}
-          />
+          <CardList>
+            {activities.map((data, i) => {
+              return (
+                <Card
+                  key={i}
+                  data={data}
+                  onClick={() => handleCardClick(data.id)}
+                  title={data.title}
+                  color={colors.primary}
+                  templateCard={[
+                    {
+                      key: 'Título',
+                      value: data.title,
+                    },
+                    {
+                      key: 'Cargo',
+                      accessor: data.role,
+                    },
+                  ]}>
+                </Card>
+              );
+            })}
+          </CardList>
         </CardContent>
       </Content>
     </Container>

@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import { Header, Content, CardContent, HeaderAction } from '../../components/layout/Layout';
 import { colors } from '../../utils/colors';
-import { Text, CardList } from '../../components';
+import { Text, CardList, Card } from '../../components';
 import { TextField, Button } from '@material-ui/core';
 import { Context } from '../../context/authContext';
 import { useAlert } from 'react-alert';
@@ -86,28 +86,36 @@ const Clients = () => {
             </Col>
           </Row>
           <Row>
-            <CardList
-              dataList={clients}
-              templateCard={[
-                {
-                  key: 'Nome',
-                  value: (value) => value.name,
-                },
-                {
-                  key: 'Telefone',
-                  value: (value) => value.phone,
-                },
-                {
-                  key: 'Endereço',
-                  value: (value) => value.street,
-                },
-                {
-                  key: 'CPF',
-                  value: (value) => value.cpf,
-                },
-              ]}
-              onCardClick={handleCardClick}
-            />
+            <CardList>
+            {clients.map((data, i) => {
+              return (
+                <Card
+                  key={i}
+                  onClick={() => handleCardClick(data.id)}
+                  title={data.name}
+                  color={colors.primary}
+                  templateCard={[
+                    {
+                      key: 'Nome',
+                      value: data.name
+                    },
+                    {
+                      key: 'Telefone',
+                      value: data.phone
+                    },
+                    {
+                      key: 'Endereço',
+                      value: data.street
+                    },
+                    {
+                      key: 'CPF',
+                      value: data.cpf
+                    },
+                  ]}>
+                </Card>
+              );
+            })}
+          </CardList>
           </Row>
         </CardContent>
       </Content>

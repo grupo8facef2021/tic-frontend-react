@@ -24,67 +24,85 @@ import {
 
 import { getEmployees } from '../../services/employees/emplyoyeesService';
 import { getClients } from '../../services/clients/clientsService';
+import { getSituations } from '../../services/situations/situationService';
 
 const Activities = (props) => {
   const alert = useAlert();
   const history = useHistory();
   const [activity, setActivity] = useState({
-    id: '',
+    id: null,
     title: '',
     description: '',
     vehicle_model: '',
     vehicle_color: '',
     vehicle_board: '',
     prevision_date: '',
-    client_id: '',
-    situation_id: '',
-    user_id: '',
-    employee_id: '',
+    client_id: null,
+    situation_id: null,
+    employee_id: null,
   });
+
   const [modal, setModal] = useState(false);
   const [clients, setClients] = useState([]);
   const [employees, setEmployees] = useState([]);
+  const [situations, setSituations] = useState([]);
 
   const { setLoading } = useContext(Context);
 
   useEffect(async () => {
+    setLoading(true);
+
     const { id } = props.match.params;
 
     const response = await getActivity(id);
 
-    if (response.success) {
-      setActivity({
-        id: response.data.id,
-        title: response.data.title,
-        description: response.data.description,
-        vehicle_model: response.data.vehicle_model,
-        vehicle_color: response.data.vehicle_color,
-        vehicle_board: response.data.vehicle_board,
-        prevision_date: response.data.prevision_date,
-        client_id: response.data.client_id,
-        situation_id: response.data.situation_id,
-        user_id: response.data.user_id,
-        employee_id: response.data.employee_id,
-      });
-    } else {
+    if (!response.success) {
       history.push('/atividades/novo');
+      return
     }
 
-    const employees = await getEmployees();
+    const [
+      employeesResponse,
+      clientsResponse,
+      situationsResponse
+    ] = await Promise.all([
+      getEmployees(),
+      getClients(),
+      getSituations()
+    ])
 
-    if (!employees.success) {
-      alert.error(employees.message);
+    if (!employeesResponse.success) {
+      alert.error(employeesResponse.message);
     } else {
-      setEmployees(employees.data);
+      setEmployees(employeesResponse.data);
     }
 
-    const clients = await getClients();
-
-    if (!clients.success) {
-      alert.error(clients.message);
+    if (!clientsResponse.success) {
+      alert.error(clientsResponse.message);
     } else {
-      setClients(clients.data);
+      setClients(clientsResponse.data);
     }
+
+    if (!situationsResponse.success) {
+      alert.error(situationsResponse.message);
+    } else {
+      setSituations(situationsResponse.data);
+    }
+
+    setActivity({
+      id: response.data.id,
+      title: response.data.title,
+      description: response.data.description,
+      vehicle_model: response.data.vehicle_model,
+      vehicle_color: response.data.vehicle_color,
+      vehicle_board: response.data.vehicle_board,
+      prevision_date: response.data.prevision_date,
+      client_id: response.data.client.id,
+      situation_id: response.data.situation.id,
+      employee_id: response.data.employee.id,
+    });
+
+    setLoading(false);
   }, []);
 
   const handleChange = (key, value) => {
@@ -93,17 +111,16 @@ const Activities = (props) => {
 
   const clearActivity = () => {
     setActivity({
-      id: '',
+      id: null,
       title: '',
       description: '',
       vehicle_model: '',
       vehicle_color: '',
       vehicle_board: '',
-      prevision_date: 'dd/mm/aaaa',
-      client_id: '',
-      situation_id: '',
-      user_id: '',
-      employee_id: '',
+      prevision_date: '',
+      client_id: null,
+      situation_id: null,
+      employee_id: null,
     });
   };
 
@@ -125,7 +142,6 @@ const Activities = (props) => {
         prevision_date,
         client_id,
         situation_id,
-        user_id,
         employee_id,
       } = activity;
       const response = await updateActivity({
@@ -138,7 +154,6 @@ const Activities = (props) => {
         prevision_date,
         client_id,
         situation_id,
-        user_id,
         employee_id,
       });
 
@@ -158,7 +173,6 @@ const Activities = (props) => {
         prevision_date,
         client_id,
         situation_id,
-        user_id,
         employee_id,
       } = activity;
       const response = await createActivity({
@@ -170,7 +184,6 @@ const Activities = (props) => {
         prevision_date,
         client_id,
         situation_id,
-        user_id,
         employee_id,
       });
 
@@ -216,7 +229,7 @@ const Activities = (props) => {
           <Row lg={3} sm={1} xs={1}>
             <Col md={4}>
               <TextField
-                label="Nome"
+                label="Título"
                 size="small"
                 variant="outlined"
                 margin="normal"
@@ -301,7 +314,13 @@ const Activities = (props) => {
                 fullWidth
                 value={activity.situation_id}
                 onChange={(e) => handleChange('situation_id', e.target.value)}
-              />
+              >
+                {situations.map((option) => (
+                  <MenuItem key={option.id} value={option.id}>
+                    {option.description}
+                  </MenuItem>
+                ))}
+              </TextField>
             </Col>
             <Col md={4}>
               <TextField
@@ -312,7 +331,8 @@ const Activities = (props) => {
                 margin="normal"
                 fullWidth
                 value={activity.employee_id}
-                onChange={(e) => handleChange('employee_id', e.target.value)}>
+                onChange={(e) => handleChange('employee_id', e.target.value)}
+              >
                 {employees.map((option) => (
                   <MenuItem key={option.id} value={option.id}>
                     {option.name}
@@ -332,6 +352,7 @@ const Activities = (props) => {
                 fullWidth
                 rows={4}
                 value={activity.description}
+                onChange={(e) => handleChange('description', e.target.value)}
               />
             </Col>
           </Row>
@@ -340,7 +361,7 @@ const Activities = (props) => {
           <div>
             {activity.id && (
               <Button
-                size="normal"
+                size="large"
                 style={{
                   borderColor: colors.danger,
                   color: colors.danger,
@@ -354,7 +375,7 @@ const Activities = (props) => {
           <ContentFooterRight>
             <div>
               <Button
-                size="normal"
+                size="large"
                 style={{ color: colors.primary, borderColor: colors.primary }}
                 variant="outlined"
                 onClick={handleBack}>
@@ -363,7 +384,7 @@ const Activities = (props) => {
             </div>
             <div>
               <Button
-                size="normal"
+                size="large"
                 style={{ background: colors.primary, color: 'white' }}
                 variant="contained"
                 onClick={handleSave}>
