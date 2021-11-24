@@ -56,9 +56,21 @@ const Activities = (props) => {
 
     const response = await getActivity(id);
 
-    if (!response.success) {
+    if (response.success) {
+      setActivity({
+        id: response.data.id,
+        title: response.data.title,
+        description: response.data.description,
+        vehicle_model: response.data.vehicle_model,
+        vehicle_color: response.data.vehicle_color,
+        vehicle_board: response.data.vehicle_board,
+        prevision_date: response.data.prevision_date,
+        client_id: response.data.client_id,
+        situation_id: response.data.situation_id,
+        employee_id: response.data.employee.id,
+      });
+    } else {
       history.push('/atividades/novo');
-      return
     }
 
     const [
@@ -88,19 +100,6 @@ const Activities = (props) => {
     } else {
       setSituations(situationsResponse.data);
     }
-
-    setActivity({
-      id: response.data.id,
-      title: response.data.title,
-      description: response.data.description,
-      vehicle_model: response.data.vehicle_model,
-      vehicle_color: response.data.vehicle_color,
-      vehicle_board: response.data.vehicle_board,
-      prevision_date: response.data.prevision_date,
-      client_id: response.data.client.id,
-      situation_id: response.data.situation.id,
-      employee_id: response.data.employee.id,
-    });
 
     setLoading(false);
   }, []);
@@ -210,6 +209,7 @@ const Activities = (props) => {
     } else {
       setModal(false);
       alert.success('Atividade excluída com sucesso!');
+      history.push('/atividades')
     }
   };
 
