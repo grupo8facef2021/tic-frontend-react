@@ -7,7 +7,7 @@ import {
   CardContent,
   ContentFooter,
   ContentFooterRight,
-} from '../../components/layout/Layout';
+} from '../../components/Layout/Layout';
 import { colors } from '../../utils/colors';
 import { Modal, Text } from '../../components';
 import { TextField, Button } from '@material-ui/core';
@@ -44,9 +44,9 @@ const Clients = (props) => {
   useEffect(async () => {
     const { id } = props.match.params;
 
-    setLoading(true)
+    setLoading(true);
     const response = await getClient(id);
-    setLoading(false)
+    setLoading(false);
 
     if (response.success) {
       setClient({
@@ -93,17 +93,15 @@ const Clients = (props) => {
     const { id, name, cpf, phone, email, cep, street, neighborhood, number } = client;
 
     if (id) {
-      const response = await updateClient(
-        id,
-        {
-          name,
-          phone,
-          email,
-          cep,
-          street,
-          neighborhood,
-          number,
-        });
+      const response = await updateClient(id, {
+        name,
+        phone,
+        email,
+        cep,
+        street,
+        neighborhood,
+        number,
+      });
 
       if (!response.success) {
         alert.error(response.message);
@@ -138,12 +136,12 @@ const Clients = (props) => {
   };
 
   const remove = async () => {
-    setLoading(true)
+    setLoading(true);
 
     const { id } = client;
     const response = await deleteClient(id);
 
-    setLoading(false)
+    setLoading(false);
 
     if (!response.success) {
       alert.error(response.message);
@@ -155,22 +153,22 @@ const Clients = (props) => {
   };
 
   const searchAddress = async () => {
-    setLoading(true)
+    setLoading(true);
     const response = await getAddress(client.cep);
 
     if (!response.success) {
       alert.error(response.message);
     } else {
-      const { data } = response
+      const { data } = response;
 
       setClient({
         ...client,
         street: data.logradouro,
-        neighborhood: data.bairro
-      })
+        neighborhood: data.bairro,
+      });
     }
 
-    setLoading(false)
+    setLoading(false);
   };
 
   return (

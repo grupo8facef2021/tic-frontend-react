@@ -3,7 +3,7 @@ import { useAlert } from 'react-alert';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import { Card, CardList, Text } from '../../components';
-import { CardContent, Content, Header } from '../../components/layout/Layout';
+import { CardContent, Content, Header } from '../../components/Layout/Layout';
 
 import { getActivities } from '../../services/activities/activitiesService';
 import { colors } from '../../utils/colors';
@@ -12,7 +12,7 @@ const Dashboard = () => {
   const alert = useAlert();
   const [activities, setActivities] = useState([]);
 
-  const history = useHistory()
+  const history = useHistory();
 
   useEffect(async () => {
     const response = await getActivities();
@@ -25,8 +25,8 @@ const Dashboard = () => {
   }, [activities]);
 
   const handleCardClick = (activitieId) => {
-    history.push(`atividades/${activitieId}`)
-  }
+    history.push(`atividades/${activitieId}`);
+  };
 
   return (
     <Container fluid>
@@ -54,8 +54,7 @@ const Dashboard = () => {
                       key: 'Cargo',
                       accessor: data.role,
                     },
-                  ]}>
-                </Card>
+                  ]}></Card>
               );
             })}
           </CardList>

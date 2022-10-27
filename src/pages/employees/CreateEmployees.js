@@ -7,7 +7,7 @@ import {
   CardContent,
   ContentFooter,
   ContentFooterRight,
-} from '../../components/layout/Layout';
+} from '../../components/Layout/Layout';
 import { colors } from '../../utils/colors';
 import { Modal, Text } from '../../components';
 import { TextField, Button } from '@material-ui/core';
@@ -36,10 +36,10 @@ const Employees = (props) => {
   useEffect(async () => {
     const { id } = props.match.params;
 
-    setLoading(true)
+    setLoading(true);
     const response = await getEmployee(id);
-    setLoading(false)
-    
+    setLoading(false);
+
     if (response.success) {
       setEmployee({
         id: response.data.id,
@@ -98,19 +98,19 @@ const Employees = (props) => {
   };
 
   const remove = async () => {
-    setLoading(true)
+    setLoading(true);
 
     const { id } = employee;
     const response = await deleteEmployee(id);
 
-    setLoading(false)
+    setLoading(false);
 
     if (!response.success) {
       alert.error(response.message);
     } else {
       setModal(false);
       alert.success('Funcionário excluído com sucesso!');
-      history.push('/funcionarios')
+      history.push('/funcionarios');
     }
   };
 

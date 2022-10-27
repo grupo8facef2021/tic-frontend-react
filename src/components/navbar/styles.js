@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import { colors } from '../../utils/colors';
 import { device } from '../../utils/devices';
 
-// Hamburguer CSS
-
 export const StyledBurger = styled.div`
   width: 2rem;
   height: 2rem;
@@ -45,7 +43,6 @@ export const StyledBurger = styled.div`
   }
 `;
 
-// Navbar CSS
 export const Nav = styled.nav`
   height: calc(2rem + 30px);
   width: 100%;
@@ -74,7 +71,6 @@ export const Nav = styled.nav`
   }
 `;
 
-// Links CSS
 export const Ul = styled.ul`
   list-style: none;
   display: flex;

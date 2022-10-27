@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Nav, StyledBurger, Ul, Logo } from './styles';
-import { Text } from '../../components';
+import { Text } from '..';
 import { NavLink } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
-import { Header } from '../layout/Layout';
+import { Header } from '../Layout/Layout';
 export class Navbar extends Component {
   constructor(props) {
     super(props);

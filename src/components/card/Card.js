@@ -1,6 +1,6 @@
 import React from 'react';
-import { CardContent } from './styles';
 import PropTypes from 'prop-types';
+import { CardContent } from './styles';
 
 export const Card = ({ title, color, templateCard, onClick }) => {
   return (
@@ -14,12 +14,12 @@ export const Card = ({ title, color, templateCard, onClick }) => {
             <p key={i}>
               {t.key}: {t.value}
             </p>
-          )
+          );
         })}
       </div>
     </CardContent>
-  )
-}
+  );
+};
 
 Card.propTypes = {
   title: PropTypes.func,

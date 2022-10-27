@@ -2,16 +2,14 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router';
 
 const Logout = () => {
-    const history = useHistory()
+  const history = useHistory();
 
-    useEffect(() => {
-        localStorage.removeItem('TOKEN_KEY')
-        history.push('/login')
-    })
+  useEffect(() => {
+    localStorage.removeItem('TOKEN_KEY');
+    history.push('/login');
+  });
 
-  return (
-    <></>
-  );
+  return <></>;
 };
 
 export default Logout;

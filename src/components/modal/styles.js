@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button, Col, Modal, Row } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 
 export const CustomModalHeader = styled(Modal.Header)`
   border: none;

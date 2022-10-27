@@ -7,7 +7,7 @@ import {
   CardContent,
   ContentFooter,
   ContentFooterRight,
-} from '../../components/layout/Layout';
+} from '../../components/Layout/Layout';
 import { colors } from '../../utils/colors';
 import { colorCardConstant } from '../../utils/constants';
 import { Modal, Text } from '../../components';

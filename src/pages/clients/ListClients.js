@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
-import { Header, Content, CardContent, HeaderAction } from '../../components/layout/Layout';
+import { Header, Content, CardContent, HeaderAction } from '../../components/Layout/Layout';
 import { colors } from '../../utils/colors';
 import { Text, CardList, Card } from '../../components';
 import { TextField, Button } from '@material-ui/core';
@@ -87,35 +87,34 @@ const Clients = () => {
           </Row>
           <Row>
             <CardList>
-            {clients.map((data, i) => {
-              return (
-                <Card
-                  key={i}
-                  onClick={() => handleCardClick(data.id)}
-                  title={data.name}
-                  color={colors.primary}
-                  templateCard={[
-                    {
-                      key: 'Nome',
-                      value: data.name
-                    },
-                    {
-                      key: 'Telefone',
-                      value: data.phone
-                    },
-                    {
-                      key: 'Endereço',
-                      value: data.street
-                    },
-                    {
-                      key: 'CPF',
-                      value: data.cpf
-                    },
-                  ]}>
-                </Card>
-              );
-            })}
-          </CardList>
+              {clients.map((data, i) => {
+                return (
+                  <Card
+                    key={i}
+                    onClick={() => handleCardClick(data.id)}
+                    title={data.name}
+                    color={colors.primary}
+                    templateCard={[
+                      {
+                        key: 'Nome',
+                        value: data.name,
+                      },
+                      {
+                        key: 'Telefone',
+                        value: data.phone,
+                      },
+                      {
+                        key: 'Endereço',
+                        value: data.street,
+                      },
+                      {
+                        key: 'CPF',
+                        value: data.cpf,
+                      },
+                    ]}></Card>
+                );
+              })}
+            </CardList>
           </Row>
         </CardContent>
       </Content>

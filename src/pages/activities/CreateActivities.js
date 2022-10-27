@@ -7,7 +7,7 @@ import {
   CardContent,
   ContentFooter,
   ContentFooterRight,
-} from '../../components/layout/Layout';
+} from '../../components/Layout/Layout';
 import { colors } from '../../utils/colors';
 import { Modal, Text } from '../../components';
 import { TextField, Button, MenuItem } from '@material-ui/core';
@@ -73,15 +73,11 @@ const Activities = (props) => {
       history.push('/atividades/novo');
     }
 
-    const [
-      employeesResponse,
-      clientsResponse,
-      situationsResponse
-    ] = await Promise.all([
+    const [employeesResponse, clientsResponse, situationsResponse] = await Promise.all([
       getEmployees(),
       getClients(),
-      getSituations()
-    ])
+      getSituations(),
+    ]);
 
     if (!employeesResponse.success) {
       alert.error(employeesResponse.message);
@@ -209,7 +205,7 @@ const Activities = (props) => {
     } else {
       setModal(false);
       alert.success('Atividade excluída com sucesso!');
-      history.push('/atividades')
+      history.push('/atividades');
     }
   };
 
@@ -313,8 +309,7 @@ const Activities = (props) => {
                 margin="normal"
                 fullWidth
                 value={activity.situation_id}
-                onChange={(e) => handleChange('situation_id', e.target.value)}
-              >
+                onChange={(e) => handleChange('situation_id', e.target.value)}>
                 {situations.map((option) => (
                   <MenuItem key={option.id} value={option.id}>
                     {option.description}
@@ -331,8 +326,7 @@ const Activities = (props) => {
                 margin="normal"
                 fullWidth
                 value={activity.employee_id}
-                onChange={(e) => handleChange('employee_id', e.target.value)}
-              >
+                onChange={(e) => handleChange('employee_id', e.target.value)}>
                 {employees.map((option) => (
                   <MenuItem key={option.id} value={option.id}>
                     {option.name}

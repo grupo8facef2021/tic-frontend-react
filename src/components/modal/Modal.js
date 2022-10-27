@@ -19,7 +19,7 @@ export const CustomModal = ({ toggle, title, onClickConfirm, onClickCancel }) =>
               size="normal"
               style={{
                 background: colors.white,
-                color: colors.primary
+                color: colors.primary,
               }}
               onClick={onClickCancel}>
               Cancelar

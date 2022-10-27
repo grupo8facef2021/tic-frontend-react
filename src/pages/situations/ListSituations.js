@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
-import { Header, Content, CardContent, HeaderAction } from '../../components/layout/Layout';
+import { Header, Content, CardContent, HeaderAction } from '../../components/Layout/Layout';
 import { colors } from '../../utils/colors';
 import { colorCardConstant } from '../../utils/constants';
 import { Text, CardList, Card } from '../../components';
@@ -8,7 +8,6 @@ import { TextField, Button } from '@material-ui/core';
 import { Context } from '../../context/authContext';
 import { useAlert } from 'react-alert';
 import { useHistory } from 'react-router';
-
 import { getSituations } from '../../services/situations/situationService';
 
 const ListSituations = () => {
@@ -95,7 +94,7 @@ const ListSituations = () => {
                     data={data}
                     onClick={() => handleCardClick(data.id)}
                     title={data.description}
-                    color={colorCardConstant.find(c => c.value === data.color).hex}
+                    color={colorCardConstant.find((c) => c.value === data.color).hex}
                     templateCard={[
                       {
                         key: 'Descrição',
@@ -103,10 +102,9 @@ const ListSituations = () => {
                       },
                       {
                         key: 'Cor',
-                        value: colorCardConstant.find(c => c.value === data.color).label,
+                        value: colorCardConstant.find((c) => c.value === data.color).label,
                       },
-                    ]}>
-                  </Card>
+                    ]}></Card>
                 );
               })}
             </CardList>

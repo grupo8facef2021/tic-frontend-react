@@ -7,7 +7,7 @@ import { colors } from '../../utils/colors';
 import { useAlert } from 'react-alert';
 import { login } from '../../services/login/loginService';
 
-import image from './images/mecanico 2.2.png';
+import image from '../../assets/images/mecanico.png';
 import { BackgroundLogin, FormLogin } from './styles';
 
 const Login = () => {

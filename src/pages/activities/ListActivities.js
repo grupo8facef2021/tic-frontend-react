@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
-import { Header, Content, CardContent, HeaderAction } from '../../components/layout/Layout';
+import { Header, Content, CardContent, HeaderAction } from '../../components/Layout/Layout';
 import { colors } from '../../utils/colors';
 import { Text, CardList, Card } from '../../components';
 import { TextField, Button, MenuItem } from '@material-ui/core';
@@ -32,15 +32,11 @@ const Activities = () => {
   const [situations, setSituations] = useState([]);
 
   useEffect(async () => {
-    const [
-      employeesResponse,
-      clientsResponse,
-      situationsResponse
-    ] = await Promise.all([
+    const [employeesResponse, clientsResponse, situationsResponse] = await Promise.all([
       getEmployees(),
       getClients(),
-      getSituations()
-    ])
+      getSituations(),
+    ]);
 
     if (!employeesResponse.success) {
       alert.error(employeesResponse.message);
@@ -59,7 +55,6 @@ const Activities = () => {
     } else {
       setSituations(situationsResponse.data);
     }
-
   }, []);
 
   const handleChange = (key, value) => {
@@ -90,8 +85,8 @@ const Activities = () => {
   };
 
   const handleCardClick = (activitieId) => {
-    history.push(`atividades/${activitieId}`)
-  }
+    history.push(`atividades/${activitieId}`);
+  };
 
   return (
     <Container fluid>
@@ -177,14 +172,14 @@ const Activities = () => {
                     onClick={() => handleCardClick(data.id)}
                     title={data.title}
                     color={
-                      colorCardConstant.find(c => c.value === (
-                        situations.find(s => s.id === data.situation.id).color
-                      )).hex
+                      colorCardConstant.find(
+                        (c) => c.value === situations.find((s) => s.id === data.situation.id).color,
+                      ).hex
                     }
                     templateCard={[
                       {
                         key: 'Situação',
-                        value: situations.find(s => s.id === data.situation.id).description,
+                        value: situations.find((s) => s.id === data.situation.id).description,
                       },
                       {
                         key: 'Título',
@@ -196,14 +191,13 @@ const Activities = () => {
                       },
                       {
                         key: 'Funcionário',
-                        value: employees.find(e => e.id === data.employee.id).name,
+                        value: employees.find((e) => e.id === data.employee.id).name,
                       },
                       {
                         key: 'Previsão de entraga',
                         value: data.prevision_date,
                       },
-                    ]}>
-                  </Card>
+                    ]}></Card>
                 );
               })}
             </CardList>

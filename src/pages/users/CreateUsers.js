@@ -7,7 +7,7 @@ import {
   CardContent,
   ContentFooter,
   ContentFooterRight,
-} from '../../components/layout/Layout';
+} from '../../components/Layout/Layout';
 import { colors } from '../../utils/colors';
 import { levelConstant } from '../../utils/constants';
 import { Text, Modal } from '../../components';
@@ -166,8 +166,7 @@ const Users = (props) => {
                 value={user.level}
                 variant="outlined"
                 onChange={(e) => handleChange('level', e.target.value)}
-                fullWidth
-              >
+                fullWidth>
                 {levelConstant.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.label}

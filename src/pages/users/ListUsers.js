@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
-import { Header, Content, CardContent, HeaderAction } from '../../components/layout/Layout';
+import { Header, Content, CardContent, HeaderAction } from '../../components/Layout/Layout';
 import { colors } from '../../utils/colors';
 import { levelConstant } from '../../utils/constants';
 import { Text, CardList, Card } from '../../components';
@@ -98,14 +98,13 @@ const Users = () => {
                     templateCard={[
                       {
                         key: 'Email',
-                        value: data.email
+                        value: data.email,
                       },
                       {
                         key: 'Tipo',
-                        value: levelConstant.find((lc) => lc.value === data.level).label
-                      }
-                    ]}>
-                  </Card>
+                        value: levelConstant.find((lc) => lc.value === data.level).label,
+                      },
+                    ]}></Card>
                 );
               })}
             </CardList>

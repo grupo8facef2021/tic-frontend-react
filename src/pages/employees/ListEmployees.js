@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
-import { Header, Content, CardContent, HeaderAction } from '../../components/layout/Layout';
+import { Header, Content, CardContent, HeaderAction } from '../../components/Layout/Layout';
 import { colors } from '../../utils/colors';
 import { Text, CardList, Card } from '../../components';
 import { TextField, Button } from '@material-ui/core';
@@ -86,7 +86,7 @@ const Employees = () => {
             </Col>
           </Row>
           <Row lg={1} sm={1} xs={1}>
-          <CardList>
+            <CardList>
               {employees.map((data, i) => {
                 return (
                   <Card
@@ -98,14 +98,13 @@ const Employees = () => {
                     templateCard={[
                       {
                         key: 'Nome',
-                        value: data.name
+                        value: data.name,
                       },
                       {
                         key: 'Cargo',
-                        value: data.role
+                        value: data.role,
                       },
-                    ]}>
-                  </Card>
+                    ]}></Card>
                 );
               })}
             </CardList>
